@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iHalado — The Global Halal Marketplace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #000000;
+      --charcoal: #111111;
+      --gray-900: #1a1a1a;
+      --gray-800: #2a2a2a;
+      --gray-700: #404040;
+      --gray-600: #525252;
+      --gray-500: #737373;
+      --gray-400: #a3a3a3;
+      --gray-300: #d4d4d4;
+      --gray-200: #e5e5e5;
+      --gray-100: #f5f5f5;
+      --gray-50: #fafafa;
+      --white: #ffffff;
+      --emerald: #10b981;
+      --emerald-dark: #059669;
+      --gold: #f59e0b;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+    }
+
+    body { font-family: var(--font-body); background: var(--white); color: var(--charcoal); line-height: 1.6; }
+
+    /* ========== HIRING BANNER ========== */
+    .hiring-banner {
+      background: linear-gradient(90deg, var(--charcoal), var(--gray-900));
+      color: var(--white); padding: 14px 60px;
+      display: flex; justify-content: center; align-items: center; gap: 20px;
+      cursor: pointer; transition: background 0.3s;
+    }
+    .hiring-banner:hover { background: var(--black); }
+    .hiring-banner-badge {
+      background: var(--emerald); color: var(--white); font-size: 10px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase; padding: 6px 14px; border-radius: 20px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
+    .hiring-banner-text { font-size: 14px; font-weight: 500; }
+    .hiring-banner-text strong { color: var(--emerald); }
+    .hiring-banner-arrow { font-size: 18px; transition: transform 0.2s; }
+    .hiring-banner:hover .hiring-banner-arrow { transform: translateX(4px); }
+
+    /* ========== ANNOUNCEMENT ========== */
+    .announcement {
+      background: linear-gradient(90deg, #ecfdf5, #d1fae5, #ecfdf5); color: var(--gray-700); text-align: center;
+      padding: 10px 20px; font-size: 13px; border-bottom: 1px solid #a7f3d0;
+    }
+    .announcement strong { color: var(--charcoal); }
+    .announcement-highlight { color: var(--emerald); font-weight: 600; }
+
+    /* ========== HEADER ========== */
+    .header {
+      background: var(--gray-50);
+      position: sticky; top: 0; z-index: 100; transition: all 0.3s;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+    .header-top {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 60px; gap: 24px;
+    }
+    .header.scrolled .header-top { padding: 12px 60px; }
+    .header-left { display: flex; align-items: center; flex-shrink: 0; }
+    .logo { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--charcoal); text-decoration: none; letter-spacing: -1px; }
+    .logo-i { color: var(--emerald); }
+    .search-container { position: relative; flex: 1; max-width: 560px; margin: 0 auto; }
+    .search-input {
+      width: 100%; padding: 12px 20px 12px 44px; border: 1px solid var(--gray-300);
+      border-radius: 50px; font-size: 14px; font-family: var(--font-body); transition: all 0.2s;
+      background: var(--white);
+    }
+    .search-input:focus { outline: none; border-color: var(--emerald); box-shadow: 0 0 0 3px rgba(16,185,129,0.1); }
+    .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--gray-400); }
+    .header-actions { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+    .header-link { font-size: 14px; font-weight: 500; color: var(--charcoal); text-decoration: none; cursor: pointer; }
+    .header-link:hover { color: var(--emerald); }
+    .header-btn {
+      width: 40px; height: 40px; border: 1px solid var(--gray-300); border-radius: 50%;
+      background: var(--white); font-size: 17px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; position: relative; transition: all 0.2s;
+      color: var(--gray-600);
+    }
+    .header-btn:hover { border-color: var(--charcoal); color: var(--charcoal); }
+    .cart-badge {
+      position: absolute; top: -4px; right: -4px; background: var(--emerald); color: var(--white);
+      font-size: 10px; font-weight: 700; width: 18px; height: 18px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .mobile-menu-btn {
+      display: none; width: 40px; height: 40px; border: 1px solid var(--gray-300); border-radius: 50%;
+      background: var(--white); font-size: 20px; cursor: pointer; align-items: center; justify-content: center;
+    }
+    .header-nav {
+      display: flex; justify-content: center; gap: 32px;
+      padding: 0 60px 14px; transition: padding 0.3s;
+    }
+    .header.scrolled .header-nav { padding: 0 60px 10px; }
+    .nav-link { color: var(--gray-600); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-link:hover { color: var(--charcoal); }
+    .nav-link.highlight { color: var(--emerald); font-weight: 600; }
+
+    /* ========== HERO ========== */
+    .hero-new {
+      display: grid; grid-template-columns: 0.8fr 1.4fr; min-height: 520px;
+      background: var(--gray-50); padding: 0 60px; max-width: 1600px; margin: 0 auto; gap: 40px;
+    }
+    .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 40px 0; }
+    .hero-tagline {
+      font-family: var(--font-display); font-size: 11px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase; color: var(--emerald); margin-bottom: 20px;
+    }
+    .hero-title {
+      font-family: var(--font-display); font-size: 58px; font-weight: 700;
+      line-height: 0.95; letter-spacing: -2px; color: var(--charcoal); margin-bottom: 24px;
+    }
+    .hero-title span { color: var(--emerald); }
+    .hero-subtitle { font-size: 15px; color: var(--gray-600); line-height: 1.6; margin-bottom: 28px; max-width: 340px; }
+    .hero-cta-group { display: flex; gap: 16px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px; background: var(--charcoal); color: var(--white);
+      padding: 14px 28px; font-size: 13px; font-weight: 600; text-decoration: none; border: none;
+      cursor: pointer; font-family: var(--font-body); transition: all 0.3s;
+    }
+    .btn-primary:hover { background: var(--black); gap: 12px; }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--charcoal);
+      padding: 14px 28px; font-size: 13px; font-weight: 600; border: 2px solid var(--charcoal);
+      cursor: pointer; font-family: var(--font-body); transition: all 0.3s;
+    }
+    .btn-secondary:hover { background: var(--charcoal); color: var(--white); }
+
+    /* Hero Right - Franchise Ad */
+    .hero-right-franchise-large { display: flex; align-items: center; padding: 20px 0; }
+    .franchise-ad-large {
+      background: linear-gradient(145deg, #c5d9a8 0%, #a8c986 30%, #8fb86a 70%, #7ba85a 100%);
+      border-radius: 24px; width: 100%; height: 480px; position: relative; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    }
+    .franchise-ad-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(255,255,255,0.1) 0%, transparent 50%); }
+    .franchise-badge-float {
+      position: absolute; top: 20px; right: 20px; background: var(--gold); color: var(--black);
+      font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      padding: 8px 16px; border-radius: 20px; z-index: 10;
+    }
+    .franchise-logo-float { position: absolute; top: 20px; left: 28px; display: flex; align-items: center; gap: 8px; z-index: 10; }
+    .franchise-logo-icon-sm {
+      width: 36px; height: 36px; background: var(--white); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+    }
+    .franchise-logo-text-sm { font-family: var(--font-display); font-size: 20px; font-weight: 400; color: var(--white); }
+    .franchise-headline-area { position: absolute; left: 28px; top: 80px; z-index: 10; }
+    .franchise-meet, .franchise-your {
+      display: block; font-family: var(--font-display); font-size: 52px; font-weight: 700;
+      color: var(--white); line-height: 0.95; text-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    }
+    .franchise-matcha {
+      display: block; font-family: Georgia, 'Times New Roman', serif; font-size: 72px;
+      font-weight: 400; font-style: italic; color: var(--white); line-height: 0.9;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    }
+    .franchise-authentic { margin-top: 24px; display: flex; flex-direction: column; gap: 2px; }
+    .franchise-authentic span { font-size: 13px; font-weight: 600; letter-spacing: 4px; color: var(--white); opacity: 0.9; }
+    .franchise-products-display { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); display: flex; gap: 16px; z-index: 5; }
+    .product-display-item { position: relative; display: flex; flex-direction: column; align-items: center; }
+    .product-cup-visual { width: 90px; height: 120px; position: relative; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2)); }
+    .cup-whip { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 70px; height: 40px; background: radial-gradient(ellipse at center, #fff 0%, #f5f5f0 100%); border-radius: 50% 50% 30% 30%; z-index: 3; }
+    .cup-whip.large { height: 50px; top: -20px; }
+    .cup-body-green { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); width: 80px; height: 95px; background: linear-gradient(180deg, #9ac47a 0%, #7ba85a 100%); border-radius: 8px 8px 20px 20px; z-index: 1; }
+    .cup-base-pink { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 30px; background: linear-gradient(180deg, #f0b8c8 0%, #e8a0b5 100%); border-radius: 0 0 20px 20px; z-index: 2; }
+    .cup-body-swirl { position: absolute; top: 5px; left: 50%; transform: translateX(-50%); width: 80px; height: 105px; background: linear-gradient(180deg, #9ac47a 0%, #9ac47a 40%, #d88a9f 60%, #c47088 100%); border-radius: 8px 8px 20px 20px; z-index: 1; }
+    .cup-logo-circle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 36px; height: 36px; background: rgba(90, 120, 60, 0.8); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; z-index: 4; border: 2px solid rgba(255,255,255,0.3); }
+    .product-garnish { position: absolute; z-index: 5; }
+    .product-garnish.rose-petal { top: -5px; right: -10px; width: 20px; height: 25px; background: linear-gradient(135deg, #ff69b4, #ff1493); border-radius: 50% 0 50% 50%; transform: rotate(45deg); }
+    .product-garnish.cinnamon-sticks { bottom: 30px; left: -15px; width: 40px; height: 8px; background: #8B4513; border-radius: 4px; transform: rotate(-30deg); }
+    .product-garnish.cinnamon-sticks::after { content: ''; position: absolute; top: 12px; left: 5px; width: 35px; height: 6px; background: #A0522D; border-radius: 3px; transform: rotate(15deg); }
+    .product-garnish.blueberries { bottom: 25px; right: -8px; width: 14px; height: 14px; background: #4169E1; border-radius: 50%; }
+    .product-garnish.blueberries::before { content: ''; position: absolute; top: -10px; left: 8px; width: 12px; height: 12px; background: #4169E1; border-radius: 50%; }
+    .product-tray { width: 100px; height: 12px; background: linear-gradient(180deg, #deb887, #c4a060); border-radius: 6px; margin-top: -5px; box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+    .product-label { margin-top: 10px; font-size: 12px; font-weight: 500; color: var(--white); text-align: right; line-height: 1.2; text-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
+    .matcha-whisk { position: absolute; top: 100px; right: 320px; width: 30px; height: 50px; background: linear-gradient(180deg, #c4a060 0%, #deb887 50%, #8fb36d 50%, #8fb36d 100%); border-radius: 4px 4px 15px 15px; transform: rotate(-20deg); z-index: 3; }
+    .matcha-whisk::before { content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); width: 40px; height: 25px; background: repeating-linear-gradient(90deg, #c4a060, #c4a060 2px, #deb887 2px, #deb887 4px); border-radius: 0 0 20px 20px; }
+    .franchise-cta-area { position: absolute; bottom: 24px; left: 28px; display: flex; align-items: center; gap: 20px; z-index: 10; }
+    .franchise-locations-float { display: flex; flex-direction: column; gap: 6px; }
+    .locations-now { font-size: 12px; font-weight: 600; color: var(--white); }
+    .locations-tags-float { display: flex; gap: 8px; }
+    .locations-tags-float span { background: rgba(255,255,255,0.25); color: var(--white); font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 20px; backdrop-filter: blur(5px); }
+    .franchise-apply-btn { background: var(--charcoal); color: var(--white); border: none; padding: 14px 28px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+    .franchise-apply-btn:hover { background: var(--black); transform: translateY(-2px); }
+
+    /* ========== CATEGORIES ROW ========== */
+    .categories-row { background: var(--white); border-bottom: 1px solid var(--gray-200); padding: 20px 60px; overflow-x: auto; }
+    .categories-row-inner { display: flex; gap: 12px; max-width: 1600px; margin: 0 auto; justify-content: center; }
+    .category-pill {
+      display: flex; align-items: center; gap: 10px; background: var(--gray-50);
+      border: 1px solid var(--gray-200); border-radius: 50px; padding: 10px 20px 10px 10px;
+      cursor: pointer; transition: all 0.3s ease; white-space: nowrap;
+    }
+    .category-pill:hover { border-color: var(--emerald); background: var(--white); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    .category-pill .category-svg-icon { width: 32px; height: 32px; }
+    .pill-name { font-size: 13px; font-weight: 600; color: var(--charcoal); }
+    .pill-count { font-size: 12px; font-weight: 600; }
+
+    /* ========== SECTION COMMON ========== */
+    .section-header { text-align: center; margin-bottom: 48px; }
+    .section-badge {
+      display: inline-block; background: var(--charcoal); color: var(--white);
+      font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 8px 16px; border-radius: 20px; margin-bottom: 20px;
+    }
+    .section-title { font-family: var(--font-display); font-size: 40px; font-weight: 700; color: var(--charcoal); letter-spacing: -1px; margin-bottom: 16px; }
+    .section-subtitle { font-size: 16px; color: var(--gray-600); max-width: 600px; margin: 0 auto; }
+
+    /* ========== MEMBERSHIP ========== */
+    .membership-section { background: var(--charcoal); padding: 80px 60px; }
+    .membership-container { max-width: 1200px; margin: 0 auto; }
+    .membership-section .section-title { color: var(--white); }
+    .membership-section .section-subtitle { color: var(--gray-400); }
+    .membership-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .membership-card { background: var(--gray-900); border-radius: 24px; padding: 40px; border: 1px solid var(--gray-700); transition: all 0.3s; position: relative; }
+    .membership-card.featured { border-color: var(--emerald); }
+    .most-popular-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--gold); color: var(--black); font-size: 11px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase; padding: 6px 18px; border-radius: 20px;
+      white-space: nowrap;
+    }
+    .membership-header { margin-bottom: 32px; }
+    .membership-name { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .membership-price { display: flex; align-items: baseline; gap: 4px; }
+    .price-value { font-family: var(--font-display); font-size: 42px; font-weight: 700; color: var(--emerald); }
+    .price-period { font-size: 16px; color: var(--gray-400); }
+    .membership-features { list-style: none; margin-bottom: 32px; }
+    .membership-features li { font-size: 15px; color: var(--gray-300); padding: 10px 0 10px 28px; position: relative; border-bottom: 1px solid var(--gray-800); }
+    .membership-features li:last-child { border-bottom: none; }
+    .membership-features li::before { content: '✓'; position: absolute; left: 0; color: var(--emerald); font-weight: 700; }
+    .membership-btn { width: 100%; padding: 16px 32px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: var(--font-body); transition: all 0.3s; }
+    .membership-btn.primary { background: var(--emerald); color: var(--white); border: none; }
+    .membership-btn.primary:hover { background: var(--emerald-dark); }
+    .community-giving-box { background: #0a3d2a; border: 1px solid var(--emerald); border-radius: 16px; padding: 24px 32px; margin-top: 32px; display: flex; align-items: center; gap: 20px; }
+    .giving-icon { font-size: 32px; flex-shrink: 0; }
+    .giving-title { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
+    .giving-description { font-size: 14px; color: var(--gray-400); }
+
+    /* ========== COMMUNITY PROJECTS ========== */
+    .community-section { padding: 80px 60px; background: var(--white); }
+    .community-container { max-width: 1400px; margin: 0 auto; }
+    .community-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; gap: 40px; }
+    .community-top-left { flex: 1; }
+    .community-badge { display: inline-block; background: var(--emerald); color: var(--white); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 8px 18px; border-radius: 20px; margin-bottom: 20px; }
+    .community-title { font-family: var(--font-display); font-size: 42px; font-weight: 700; color: var(--charcoal); letter-spacing: -1px; margin-bottom: 16px; line-height: 1.1; }
+    .community-subtitle { font-size: 16px; color: var(--gray-500); line-height: 1.6; max-width: 520px; }
+    .community-pool-card {
+      background: var(--charcoal); border-radius: 16px; padding: 24px 32px;
+      text-align: center; flex-shrink: 0; min-width: 220px;
+    }
+    .pool-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gray-400); margin-bottom: 8px; }
+    .pool-amount { font-family: var(--font-display); font-size: 36px; font-weight: 700; color: var(--emerald); margin-bottom: 4px; }
+    .pool-voters { font-size: 13px; color: var(--gray-400); }
+    .projects-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px; }
+    .project-card {
+      background: var(--white); border: 1px solid var(--gray-200); border-radius: 16px;
+      overflow: hidden; transition: all 0.3s; display: flex; flex-direction: column;
+    }
+    .project-card:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.08); transform: translateY(-4px); }
+    .project-card.leading { border: 2px solid var(--emerald); }
+    .project-card-image { position: relative; width: 100%; height: 180px; overflow: hidden; }
+    .project-card-image img { width: 100%; height: 100%; object-fit: cover; }
+    .project-rank-badge {
+      position: absolute; top: 12px; left: 12px; width: 32px; height: 32px;
+      background: var(--emerald); color: var(--white); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700;
+    }
+    .project-category-float {
+      position: absolute; top: 12px; right: 12px;
+      background: var(--white); color: var(--charcoal); font-size: 11px; font-weight: 600;
+      padding: 4px 12px; border-radius: 20px; display: flex; align-items: center; gap: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .project-card-body { padding: 16px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+    .project-card-title { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--charcoal); margin-bottom: 6px; line-height: 1.3; }
+    .project-location { font-size: 13px; color: var(--gray-500); margin-bottom: 10px; }
+    .project-desc { font-size: 13px; color: var(--gray-600); line-height: 1.5; margin-bottom: 16px; flex: 1; }
+    .project-progress-bar { height: 6px; background: var(--gray-200); border-radius: 3px; margin-bottom: 8px; overflow: hidden; }
+    .project-progress-fill { height: 100%; background: var(--emerald); border-radius: 3px; }
+    .project-progress-info { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 14px; }
+    .project-progress-info .raised { color: var(--charcoal); font-weight: 600; }
+    .project-progress-info .goal { color: var(--gray-400); }
+    .project-vote-area { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--gray-100); }
+    .project-votes { font-size: 14px; font-weight: 600; color: var(--charcoal); }
+    .vote-btn {
+      padding: 8px 22px; border-radius: 8px; font-size: 13px; font-weight: 600;
+      cursor: pointer; font-family: var(--font-body); transition: all 0.2s; border: none;
+    }
+    .vote-btn.voted { background: var(--emerald); color: var(--white); }
+    .vote-btn.not-voted { background: var(--charcoal); color: var(--white); }
+    .vote-btn.not-voted:hover { background: var(--black); }
+
+    /* Submit Project CTA */
+    .submit-project-box {
+      background: var(--white); border: 1px solid var(--gray-200); border-radius: 16px;
+      padding: 36px 40px; margin-bottom: 32px; margin-top: 40px;
+      display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    }
+    .submit-project-left { flex: 1; }
+    .submit-project-box h3 { font-family: var(--font-display); font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .submit-project-box p { font-size: 14px; color: var(--gray-500); margin: 0; max-width: 440px; line-height: 1.5; }
+    .submit-project-btns { display: flex; gap: 12px; flex-shrink: 0; }
+    .submit-project-btns .btn-sm {
+      padding: 14px 28px; border-radius: 50px; font-size: 14px; font-weight: 600;
+      cursor: pointer; font-family: var(--font-body); transition: all 0.2s; white-space: nowrap;
+    }
+    .btn-sm.primary { background: var(--charcoal); color: var(--white); border: none; }
+    .btn-sm.primary:hover { background: var(--black); }
+    .btn-sm.secondary { background: var(--white); color: var(--charcoal); border: 1px solid var(--gray-300); }
+    .btn-sm.secondary:hover { border-color: var(--charcoal); }
+
+    /* Recently Funded */
+    .recently-funded { background: var(--gray-50); border-radius: 16px; padding: 32px 40px; }
+    .recently-funded h3 { font-family: var(--font-display); font-size: 20px; font-weight: 700; margin-bottom: 24px; }
+    .funded-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .funded-item { display: flex; align-items: center; gap: 14px; }
+    .funded-check {
+      width: 40px; height: 40px; background: var(--emerald); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--white); flex-shrink: 0;
+    }
+    .funded-info strong { display: block; font-size: 14px; color: var(--charcoal); font-weight: 600; }
+    .funded-info span { font-size: 13px; color: var(--gray-400); }
+
+    /* ========== SHOP SECTION ========== */
+    .shop-section { padding: 80px 60px; max-width: 1600px; margin: 0 auto; }
+    .shop-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
+    .shop-header-left {}
+    .shop-title { font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--charcoal); }
+    .shop-subtitle { font-size: 14px; color: var(--gray-500); margin-top: 4px; }
+    .shop-link { font-size: 14px; font-weight: 600; color: var(--charcoal); text-decoration: none; }
+    .categories-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
+    .category-card { position: relative; aspect-ratio: 0.85; border-radius: 20px; overflow: hidden; cursor: pointer; transition: transform 0.3s; }
+    .category-card:hover { transform: translateY(-8px); }
+    .category-card img { width: 100%; height: 100%; object-fit: cover; }
+    .category-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%); }
+    .category-info { position: absolute; bottom: 20px; left: 20px; right: 20px; z-index: 1; }
+    .category-name { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .category-count { font-size: 13px; color: var(--gray-300); }
+    .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 40px; }
+    .product-card { background: var(--white); border-radius: 20px; overflow: hidden; border: 1px solid var(--gray-100); transition: all 0.3s; }
+    .product-card:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.1); transform: translateY(-4px); }
+    .product-image { position: relative; aspect-ratio: 1; overflow: hidden; }
+    .product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .product-card:hover .product-image img { transform: scale(1.05); }
+    .product-badge { position: absolute; top: 12px; left: 12px; background: var(--charcoal); color: var(--white); font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 6px 12px; border-radius: 20px; }
+    .product-wishlist { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; background: var(--white); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all 0.2s; }
+    .product-wishlist:hover { transform: scale(1.1); }
+    .product-content { padding: 20px; }
+    .product-vendor { font-size: 12px; color: var(--gray-500); margin-bottom: 4px; }
+    .product-name { font-size: 15px; font-weight: 600; color: var(--charcoal); margin-bottom: 8px; }
+    .product-price { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .current-price { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--charcoal); }
+    .original-price { font-size: 14px; color: var(--gray-400); text-decoration: line-through; }
+    .product-rating { display: flex; align-items: center; gap: 6px; }
+    .stars { color: var(--gold); font-size: 12px; }
+    .rating-text { font-size: 12px; color: var(--gray-500); }
+
+    /* ========== CITY SELECTOR ========== */
+    .city-section { padding: 60px; background: var(--charcoal); }
+    .city-container { max-width: 1200px; margin: 0 auto; text-align: center; }
+    .city-title { font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--white); margin-bottom: 12px; }
+    .city-subtitle { font-size: 16px; color: var(--gray-400); margin-bottom: 40px; }
+    .city-grid { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .city-card { background: var(--gray-800); border: 2px solid var(--gray-700); border-radius: 16px; padding: 24px 32px; cursor: pointer; transition: all 0.3s; min-width: 140px; }
+    .city-card:hover, .city-card.active { border-color: var(--emerald); background: var(--gray-900); }
+    .city-flag { font-size: 32px; margin-bottom: 8px; }
+    .city-name-text { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--white); }
+
+    /* ========== IMPACT ========== */
+    .impact-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; }
+    .impact-content { background: var(--gray-50); padding: 80px; display: flex; flex-direction: column; justify-content: center; }
+    .impact-badge { display: inline-block; background: var(--emerald); color: var(--white); font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 8px 16px; border-radius: 20px; margin-bottom: 24px; width: fit-content; }
+    .impact-title { font-family: var(--font-display); font-size: 36px; font-weight: 700; color: var(--charcoal); line-height: 1.2; margin-bottom: 20px; }
+    .impact-text { font-size: 16px; color: var(--gray-600); line-height: 1.7; margin-bottom: 32px; }
+    .impact-stats { display: flex; gap: 40px; }
+    .impact-stat-value { font-family: var(--font-display); font-size: 36px; font-weight: 700; color: var(--emerald); }
+    .impact-stat-label { font-size: 14px; color: var(--gray-500); }
+    .impact-visual { background: linear-gradient(135deg, #10b981, #059669); display: flex; align-items: center; justify-content: center; }
+    .impact-icon { font-size: 180px; opacity: 0.2; }
+
+    /* ========== NEWSLETTER ========== */
+    .newsletter-section { background: var(--gray-100); padding: 60px; text-align: center; }
+    .newsletter-title { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--charcoal); margin-bottom: 12px; }
+    .newsletter-text { font-size: 15px; color: var(--gray-600); margin-bottom: 24px; }
+    .newsletter-form { display: flex; gap: 12px; max-width: 500px; margin: 0 auto; }
+    .newsletter-input { flex: 1; padding: 16px 24px; border: 2px solid var(--gray-300); border-radius: 50px; font-size: 14px; font-family: var(--font-body); }
+    .newsletter-input:focus { outline: none; border-color: var(--emerald); }
+    .newsletter-btn { background: var(--charcoal); color: var(--white); padding: 16px 32px; border: none; border-radius: 50px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: var(--font-body); transition: background 0.3s; }
+    .newsletter-btn:hover { background: var(--black); }
+
+    /* ========== FOOTER ========== */
+    .footer { background: var(--charcoal); color: var(--white); padding: 60px; }
+    .footer-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr repeat(4, 1fr); gap: 40px; }
+    .footer-brand .footer-tagline { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--white); margin: 8px 0; }
+    .footer-brand p { font-size: 14px; color: var(--gray-400); max-width: 300px; line-height: 1.6; }
+    .footer-column h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; margin-bottom: 20px; }
+    .footer-column a { display: block; font-size: 14px; color: var(--gray-400); text-decoration: none; margin-bottom: 12px; transition: color 0.2s; }
+    .footer-column a:hover { color: var(--white); }
+    .footer-bottom { max-width: 1400px; margin: 40px auto 0; padding-top: 40px; border-top: 1px solid var(--gray-800); display: flex; justify-content: space-between; align-items: center; }
+    .footer-copyright { font-size: 13px; color: var(--gray-500); }
+    .footer-socials { display: flex; gap: 12px; }
+    .footer-socials a { width: 36px; height: 36px; border: 1px solid var(--gray-700); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; text-decoration: none; transition: all 0.2s; }
+    .footer-socials a:hover { border-color: var(--emerald); }
+
+    /* ========== MODALS ========== */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }
+    .modal-overlay.active { display: flex; }
+    .modal { background: var(--white); border-radius: 24px; max-width: 900px; width: 100%; max-height: 95vh; overflow-y: auto; position: relative; }
+    .close-modal { position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; background: var(--gray-100); border: none; border-radius: 50%; font-size: 24px; cursor: pointer; z-index: 10; }
+
+    /* Hiring Modal */
+    .hiring-header { background: linear-gradient(135deg, var(--charcoal), var(--gray-900)); padding: 60px 48px; color: var(--white); }
+    .hiring-badge { display: inline-block; background: var(--emerald); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 8px 16px; border-radius: 20px; margin-bottom: 20px; }
+    .hiring-header h1 { font-family: var(--font-display); font-size: 42px; font-weight: 700; margin-bottom: 12px; }
+    .hiring-tagline { font-size: 18px; color: var(--gray-400); }
+    .hiring-content { padding: 48px; }
+    .hiring-section { margin-bottom: 40px; }
+    .hiring-section h3 { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--charcoal); margin-bottom: 16px; }
+    .hiring-section p { font-size: 15px; color: var(--gray-600); line-height: 1.7; }
+    .hiring-section ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .hiring-section li { font-size: 15px; color: var(--gray-600); padding-left: 28px; position: relative; line-height: 1.6; }
+    .hiring-section li::before { content: '→'; position: absolute; left: 0; color: var(--emerald); font-weight: 700; }
+    .hiring-section li strong { color: var(--charcoal); }
+    .comp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .comp-item { background: var(--gray-50); padding: 20px; border-radius: 12px; }
+    .comp-label { font-size: 12px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px; }
+    .comp-value { font-size: 18px; font-weight: 700; color: var(--charcoal); }
+    .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .why-item { display: flex; align-items: flex-start; gap: 16px; }
+    .why-icon { font-size: 28px; }
+    .why-item strong { display: block; font-size: 15px; color: var(--charcoal); margin-bottom: 4px; }
+    .why-item p { font-size: 13px; color: var(--gray-500); margin: 0; }
+    .hiring-cta { text-align: center; padding: 40px; background: var(--gray-50); border-radius: 16px; }
+    .hiring-cta p { font-size: 18px; font-weight: 600; color: var(--charcoal); margin-bottom: 20px; }
+    .apply-btn-large { display: inline-block; background: var(--emerald); color: var(--white); padding: 18px 48px; font-size: 16px; font-weight: 700; text-decoration: none; border-radius: 12px; margin-bottom: 16px; }
+    .apply-btn-large:hover { background: var(--emerald-dark); }
+    .hiring-note { display: block; font-size: 13px; color: var(--gray-500); }
+
+    /* ========== ZAKAAT CALCULATOR MODAL ========== */
+    .zakaat-modal-header {
+      background: linear-gradient(135deg, #065f46, #10b981); padding: 48px; color: var(--white);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .zakaat-modal-header::before { content:''; position:absolute; inset:0; background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity:0.5; }
+    .zakaat-modal-header > * { position:relative; z-index:1; }
+    .zakaat-modal-badge { display:inline-block; background:rgba(255,255,255,0.2); backdrop-filter:blur(10px); font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:8px 16px; border-radius:20px; margin-bottom:16px; }
+    .zakaat-modal-header h1 { font-family:var(--font-display); font-size:32px; font-weight:700; margin-bottom:8px; }
+    .zakaat-modal-header p { font-size:15px; opacity:0.85; max-width:480px; margin:0 auto; }
+    .zakaat-modal-content { padding:32px 40px 40px; }
+    .calc-selectors-row { display:flex; gap:16px; margin-bottom:24px; align-items:center; flex-wrap:wrap; }
+    .calc-selector-group { display:flex; align-items:center; gap:8px; }
+    .calc-selector-group > label { font-size:13px; font-weight:600; color:var(--gray-500); white-space:nowrap; }
+    .calc-select-wrap { position:relative; flex-shrink:0; }
+    .calc-select {
+      padding:10px 36px 10px 14px; border:2px solid var(--gray-200); border-radius:10px;
+      font-size:13px; font-weight:600; font-family:var(--font-body); background:var(--white);
+      cursor:pointer; appearance:none; -webkit-appearance:none; color:var(--charcoal);
+      transition:border-color 0.2s; min-width:160px;
+    }
+    .calc-select:focus { outline:none; border-color:var(--emerald); }
+    .calc-select-wrap::after {
+      content:'▾'; position:absolute; right:12px; top:50%; transform:translateY(-50%);
+      font-size:14px; color:var(--gray-400); pointer-events:none;
+    }
+    .lang-select-wrap { position:relative; flex-shrink:0; }
+    .lang-select {
+      padding:10px 36px 10px 14px; border:2px solid var(--gray-200); border-radius:10px;
+      font-size:13px; font-weight:600; font-family:var(--font-body); background:var(--white);
+      cursor:pointer; appearance:none; -webkit-appearance:none; color:var(--charcoal);
+      transition:border-color 0.2s; min-width:160px;
+    }
+    .lang-select:focus { outline:none; border-color:var(--emerald); }
+    .lang-select-wrap::after {
+      content:'▾'; position:absolute; right:12px; top:50%; transform:translateY(-50%);
+      font-size:14px; color:var(--gray-400); pointer-events:none;
+    }
+    .calc-tabs { display:flex; gap:4px; background:var(--gray-100); border-radius:12px; padding:4px; margin-bottom:28px; }
+    .calc-tab { flex:1; padding:12px 20px; border:none; border-radius:10px; font-size:14px; font-weight:600; font-family:var(--font-body); cursor:pointer; background:transparent; color:var(--gray-500); transition:all 0.2s; }
+    .calc-tab.active { background:var(--white); color:var(--charcoal); box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+    .calc-tab:hover:not(.active) { color:var(--charcoal); }
+    .calc-panel { display:none; }
+    .calc-panel.active { display:block; }
+    .calc-info-box { background:linear-gradient(135deg,#ecfdf5,#d1fae5); border:1px solid #a7f3d0; border-radius:12px; padding:16px 20px; margin-bottom:24px; display:flex; gap:12px; align-items:flex-start; }
+    .calc-info-icon { font-size:20px; flex-shrink:0; }
+    .calc-info-box p { font-size:13px; color:#065f46; line-height:1.5; margin:0; }
+    .calc-info-box strong { color:#064e3b; }
+    .calc-group { margin-bottom:20px; }
+    .calc-group-title { font-family:var(--font-display); font-size:16px; font-weight:700; color:var(--charcoal); margin-bottom:12px; padding-bottom:8px; border-bottom:2px solid var(--gray-100); display:flex; align-items:center; gap:8px; }
+    .calc-group-title span { font-size:18px; }
+    .calc-field { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px; }
+    .calc-field label { font-size:14px; color:var(--gray-600); flex:1; }
+    .calc-input-wrap { position:relative; width:160px; flex-shrink:0; }
+    .calc-input-wrap .currency-sign { position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:14px; font-weight:600; color:var(--gray-400); }
+    .calc-input { width:100%; padding:12px 14px 12px 28px; border:2px solid var(--gray-200); border-radius:10px; font-size:14px; font-family:var(--font-body); text-align:right; transition:border-color 0.2s; background:var(--white); }
+    .calc-input:focus { outline:none; border-color:var(--emerald); }
+    .calc-divider { height:1px; background:var(--gray-100); margin:24px 0; }
+    .calc-result-box { background:linear-gradient(135deg,var(--charcoal),var(--gray-900)); border-radius:16px; padding:28px; text-align:center; margin-top:24px; }
+    .calc-result-label { font-size:13px; color:var(--gray-400); text-transform:uppercase; letter-spacing:1px; font-weight:600; margin-bottom:8px; }
+    .calc-result-amount { font-family:var(--font-display); font-size:48px; font-weight:700; color:var(--emerald); margin-bottom:8px; }
+    .calc-result-note { font-size:13px; color:var(--gray-400); }
+    .calc-result-breakdown { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px; padding-top:20px; border-top:1px solid var(--gray-700); }
+    .breakdown-item { text-align:center; }
+    .breakdown-value { display:block; font-family:var(--font-display); font-size:20px; font-weight:700; color:var(--white); }
+    .breakdown-label { font-size:11px; color:var(--gray-500); }
+    .fitrana-select { width:100%; padding:12px 14px; border:2px solid var(--gray-200); border-radius:10px; font-size:14px; font-family:var(--font-body); background:var(--white); cursor:pointer; transition:border-color 0.2s; }
+    .fitrana-select:focus { outline:none; border-color:var(--emerald); }
+    .fitrana-people-row { display:flex; align-items:center; gap:16px; margin-top:16px; }
+    .fitrana-people-label { font-size:14px; color:var(--gray-600); flex:1; }
+    .people-counter { display:flex; align-items:center; gap:12px; }
+    .counter-btn { width:36px; height:36px; border-radius:50%; border:2px solid var(--gray-200); background:var(--white); font-size:18px; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; color:var(--charcoal); font-family:var(--font-body); }
+    .counter-btn:hover { border-color:var(--emerald); color:var(--emerald); }
+    .counter-value { font-family:var(--font-display); font-size:20px; font-weight:700; color:var(--charcoal); min-width:32px; text-align:center; }
+    .calc-donate-btn { width:100%; margin-top:16px; padding:16px 32px; background:var(--emerald); color:var(--white); border:none; border-radius:12px; font-size:15px; font-weight:600; cursor:pointer; font-family:var(--font-body); transition:all 0.3s; }
+    .calc-donate-btn:hover { background:var(--emerald-dark); transform:translateY(-2px); }
+
+    /* ========== MOBILE NAV ========== */
+    .mobile-nav-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:199; }
+    .mobile-nav-overlay.active { display:block; }
+    .mobile-nav-drawer { display:none; position:fixed; top:0; right:-300px; width:280px; height:100%; background:var(--white); z-index:200; padding:24px; box-shadow:-4px 0 30px rgba(0,0,0,0.15); transition:right 0.3s ease; overflow-y:auto; }
+    .mobile-nav-drawer.active { display:block; right:0; }
+    .mobile-nav-close { width:36px; height:36px; border:none; background:var(--gray-100); border-radius:50%; font-size:20px; cursor:pointer; margin-bottom:24px; }
+    .mobile-nav-drawer .mobile-nav-links { display:flex; flex-direction:column; }
+    .mobile-nav-drawer .mobile-nav-links a { display:block; padding:14px 0; font-size:16px; font-weight:500; color:var(--charcoal); text-decoration:none; border-bottom:1px solid var(--gray-100); }
+    .mobile-nav-drawer .mobile-nav-links a:hover { color:var(--emerald); }
+    .mobile-nav-drawer .mobile-nav-actions { margin-top:24px; }
+    .mobile-sell-btn { display:block; background:var(--emerald); color:var(--white); text-align:center; padding:14px 24px; border-radius:10px; font-size:14px; font-weight:600; text-decoration:none; border:none; cursor:pointer; font-family:var(--font-body); width:100%; }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width:1200px) {
+      .hiring-banner,.announcement { padding-left:24px; padding-right:24px; }
+      .header-top { padding:16px 24px; }
+      .header.scrolled .header-top { padding:10px 24px; }
+      .header-nav { padding:0 24px 12px; gap:20px; }
+      .nav-link { font-size:13px; }
+      .hero-new { padding:0 24px; gap:24px; min-height:440px; }
+      .hero-title { font-size:44px; }
+      .franchise-ad-large { height:400px; }
+      .franchise-meet,.franchise-your { font-size:40px; }
+      .franchise-matcha { font-size:56px; }
+      .product-cup-visual { width:70px; height:95px; }
+      .cup-body-green { width:64px; height:75px; }
+      .cup-base-pink { width:64px; height:24px; }
+      .cup-body-swirl { width:64px; height:85px; }
+      .cup-whip { width:56px; height:32px; }
+      .cup-logo-circle { width:28px; height:28px; font-size:12px; }
+      .product-tray { width:80px; height:10px; }
+      .product-label { font-size:10px; }
+      .matcha-whisk { right:250px; width:24px; height:40px; }
+      .categories-row { padding:16px 24px; }
+      .membership-section,.community-section,.shop-section { padding:60px 24px; }
+      .community-title { font-size:36px; }
+      .projects-grid { grid-template-columns:repeat(2,1fr); }
+      .categories-grid { grid-template-columns:repeat(3,1fr); }
+      .products-grid { grid-template-columns:repeat(3,1fr); }
+      .city-section { padding:48px 24px; }
+      .impact-content { padding:48px; }
+      .newsletter-section,.footer { padding:48px 24px; }
+    }
+
+    @media (max-width:768px) {
+      .hiring-banner { padding:10px 16px; gap:10px; }
+      .hiring-banner-text { font-size:12px; }
+      .hiring-banner-badge { font-size:9px; padding:4px 10px; }
+      .announcement { font-size:12px; padding:8px 16px; }
+      .header-top { padding:12px 16px; }
+      .search-container { display:none; }
+      .header-nav { display:none; }
+      .header-link { display:none; }
+      .mobile-menu-btn { display:flex; }
+      .hero-new { grid-template-columns:1fr; padding:0 16px; min-height:auto; gap:0; }
+      .hero-left { padding:32px 0 24px; text-align:center; align-items:center; }
+      .hero-title { font-size:42px; }
+      .hero-subtitle { max-width:100%; text-align:center; }
+      .hero-cta-group { justify-content:center; flex-wrap:wrap; }
+      .hero-right-franchise-large { padding:0 0 24px; }
+      .franchise-ad-large { height:360px; }
+      .franchise-meet,.franchise-your { font-size:36px; }
+      .franchise-matcha { font-size:48px; }
+      .franchise-headline-area { left:20px; top:64px; }
+      .franchise-products-display { right:12px; gap:8px; }
+      .product-cup-visual { width:60px; height:80px; }
+      .cup-body-green { width:52px; height:65px; top:10px; }
+      .cup-base-pink { width:52px; height:20px; }
+      .cup-body-swirl { width:52px; height:72px; top:3px; }
+      .cup-whip { width:46px; height:28px; top:-10px; }
+      .cup-whip.large { height:36px; top:-14px; }
+      .cup-logo-circle { width:24px; height:24px; font-size:10px; }
+      .product-tray { width:66px; height:8px; }
+      .product-label { font-size:9px; }
+      .matcha-whisk { display:none; }
+      .franchise-cta-area { left:20px; bottom:16px; gap:12px; flex-wrap:wrap; }
+      .franchise-apply-btn { padding:10px 20px; font-size:12px; }
+      .franchise-authentic span { font-size:11px; letter-spacing:2px; }
+      .categories-row { padding:12px 16px; }
+      .categories-row-inner { justify-content:flex-start; }
+      .membership-section,.community-section { padding:48px 16px; }
+      .section-title { font-size:32px; }
+      .membership-grid { grid-template-columns:1fr; }
+      .community-top { flex-direction:column; gap:20px; }
+      .community-title { font-size:32px; }
+      .community-pool-card { align-self:flex-start; }
+      .projects-grid { grid-template-columns:repeat(2,1fr); }
+      .submit-project-box { flex-direction:column; align-items:flex-start; gap:20px; padding:24px; }
+      .funded-list { grid-template-columns:repeat(2,1fr); gap:16px; }
+      .recently-funded { padding:24px; }
+      .shop-section { padding:48px 16px; }
+      .shop-title { font-size:24px; }
+      .categories-grid { grid-template-columns:repeat(2,1fr); gap:12px; }
+      .products-grid { grid-template-columns:repeat(2,1fr); gap:12px; }
+      .city-section { padding:40px 16px; }
+      .city-title { font-size:26px; }
+      .impact-section { grid-template-columns:1fr; }
+      .impact-content { padding:40px 24px; }
+      .impact-title { font-size:28px; }
+      .impact-visual { min-height:200px; }
+      .impact-icon { font-size:120px; }
+      .newsletter-section { padding:40px 16px; }
+      .newsletter-form { flex-direction:column; }
+      .newsletter-btn { width:100%; }
+      .footer { padding:40px 16px; }
+      .footer-container { grid-template-columns:1fr 1fr; gap:32px; }
+      .footer-brand { grid-column:1/-1; }
+      .footer-bottom { flex-direction:column; gap:16px; text-align:center; }
+      .modal { border-radius:16px; margin:10px; }
+      .hiring-header { padding:36px 24px; }
+      .hiring-header h1 { font-size:28px; }
+      .hiring-content { padding:24px; }
+      .comp-grid,.why-grid { grid-template-columns:1fr; }
+      .zakaat-modal-header { padding:32px 20px; }
+      .zakaat-modal-content { padding:20px; }
+      .calc-field { flex-direction:column; align-items:stretch; gap:6px; }
+      .calc-input-wrap { width:100%; }
+      .calc-result-amount { font-size:38px; }
+    }
+
+    @media (max-width:576px) {
+      .hiring-banner { flex-wrap:wrap; justify-content:center; text-align:center; }
+      .hiring-banner-arrow { display:none; }
+      .header-top { gap:8px; }
+      .logo { font-size:24px; }
+      .header-btn { width:36px; height:36px; font-size:15px; }
+      .cart-badge { width:16px; height:16px; font-size:9px; }
+      .header-actions { gap:8px; }
+      .hero-new { padding:0 12px; }
+      .hero-left { padding:24px 0 16px; }
+      .hero-title { font-size:34px; letter-spacing:-1px; }
+      .hero-subtitle { font-size:13px; }
+      .btn-primary,.btn-secondary { padding:12px 20px; font-size:12px; }
+      .franchise-ad-large { height:320px; border-radius:16px; }
+      .franchise-badge-float { font-size:8px; padding:6px 10px; }
+      .franchise-meet,.franchise-your { font-size:28px; }
+      .franchise-matcha { font-size:38px; }
+      .franchise-products-display { right:8px; gap:4px; }
+      .product-cup-visual { width:48px; height:64px; }
+      .cup-body-green { width:42px; height:52px; top:8px; }
+      .cup-base-pink { width:42px; height:16px; }
+      .cup-body-swirl { width:42px; height:58px; top:2px; }
+      .cup-whip { width:38px; height:22px; top:-8px; }
+      .cup-logo-circle { width:20px; height:20px; font-size:8px; border-width:1px; }
+      .product-tray { width:52px; height:6px; }
+      .product-label { font-size:8px; }
+      .product-garnish { display:none; }
+      .categories-row { padding:10px 12px; }
+      .category-pill { padding:6px 12px 6px 6px; gap:6px; }
+      .category-pill .category-svg-icon { width:24px; height:24px; }
+      .pill-name { font-size:11px; }
+      .membership-section,.community-section,.shop-section { padding:36px 12px; }
+      .section-title { font-size:26px; }
+      .membership-card { padding:20px; border-radius:16px; }
+      .price-value { font-size:34px; }
+      .community-title { font-size:26px; }
+      .projects-grid { grid-template-columns:1fr; }
+      .project-card-title { font-size:15px; }
+      .funded-list { grid-template-columns:1fr; }
+      .recently-funded { padding:20px; }
+      .shop-title { font-size:22px; }
+      .categories-grid { gap:10px; }
+      .category-name { font-size:13px; }
+      .products-grid { gap:10px; }
+      .product-content { padding:12px; }
+      .product-name { font-size:13px; }
+      .current-price { font-size:16px; }
+      .product-badge { font-size:8px; padding:4px 8px; }
+      .product-wishlist { width:30px; height:30px; font-size:13px; }
+      .city-section { padding:32px 12px; }
+      .city-title { font-size:22px; }
+      .city-card { padding:14px 16px; min-width:90px; }
+      .city-flag { font-size:22px; }
+      .city-name-text { font-size:12px; }
+      .impact-content { padding:32px 16px; }
+      .impact-title { font-size:24px; }
+      .impact-stats { flex-direction:column; gap:16px; }
+      .newsletter-section { padding:32px 12px; }
+      .newsletter-title { font-size:22px; }
+      .footer { padding:32px 12px; }
+      .footer-container { grid-template-columns:1fr; }
+      .footer-brand { grid-column:auto; }
+      .modal-overlay { padding:0; align-items:flex-end; }
+      .modal { border-radius:20px 20px 0 0; max-height:92vh; margin:0; }
+      .hiring-header { padding:28px 16px; }
+      .hiring-header h1 { font-size:24px; }
+      .hiring-content { padding:16px; }
+      .zakaat-modal-header { padding:24px 16px; }
+      .zakaat-modal-header h1 { font-size:22px; }
+      .zakaat-modal-content { padding:16px; }
+      .calc-tabs { flex-direction:column; }
+      .calc-result-amount { font-size:32px; }
+      .calc-selectors-row { flex-direction:column; gap:12px; }
+      .calc-selector-group { width:100%; }
+      .calc-select, .lang-select { width:100%; min-width:0; }
+      .calc-result-breakdown { grid-template-columns:1fr; }
+    }
+
+    @media (max-width:380px) {
+      .hero-title { font-size:28px; }
+      .hero-cta-group { flex-direction:column; width:100%; }
+      .btn-primary,.btn-secondary { width:100%; justify-content:center; }
+      .franchise-ad-large { height:280px; }
+      .franchise-meet,.franchise-your { font-size:24px; }
+      .franchise-matcha { font-size:32px; }
+      .franchise-products-display { display:none; }
+      .categories-grid,.products-grid { grid-template-columns:1fr; }
+      .section-title { font-size:22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hiring Banner -->
+  <div class="hiring-banner" onclick="openHiringModal()">
+    <span class="hiring-banner-badge">We're Hiring</span>
+    <span class="hiring-banner-text">Join us as <strong>CEO</strong> and lead the $2.3T halal economy revolution</span>
+    <span class="hiring-banner-arrow">→</span>
+  </div>
+
+  <!-- Announcement -->
+  <div class="announcement">
+    Free shipping on orders over $75 · <span class="announcement-highlight"><strong>5% of every purchase supports your local mosque</strong></span>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-top">
+      <div class="header-left">
+        <a href="#" class="logo"><span class="logo-i">i</span>halado</a>
+      </div>
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" placeholder="Search halal products, restaurants, services...">
+      </div>
+      <div class="header-actions">
+        <a href="#" class="header-link">Sell on iHalado</a>
+        <button class="header-btn">👤</button>
+        <button class="header-btn">♡</button>
+        <button class="header-btn">🛒<span class="cart-badge">3</span></button>
+        <button class="mobile-menu-btn" onclick="openMobileNav()">☰</button>
+      </div>
+    </div>
+    <nav class="header-nav">
+      <a href="#" class="nav-link">Shop</a>
+      <a href="#" class="nav-link">Restaurants</a>
+      <a href="#" class="nav-link">Mosques</a>
+      <a href="#" class="nav-link">Jobs</a>
+      <a href="#" class="nav-link">Events</a>
+      <a href="#" class="nav-link">Travel</a>
+      <a href="#" class="nav-link">Earn</a>
+      <a href="#" class="nav-link highlight" onclick="event.preventDefault(); openZakaatCalc()">Zakaat/Fitrana Calculator</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero-new">
+    <div class="hero-left">
+      <span class="hero-tagline">THE GLOBAL HALAL MARKETPLACE</span>
+      <h1 class="hero-title"><span>i</span>halado,<br>do you?</h1>
+      <p class="hero-subtitle">Shop, dine, pray, work, travel, and earn—all in one platform. Join millions discovering the halal way of life.</p>
+      <div class="hero-cta-group">
+        <button class="btn-primary">Start Exploring →</button>
+        <button class="btn-secondary">Sell With Us</button>
+      </div>
+    </div>
+    <div class="hero-right-franchise-large">
+      <div class="franchise-ad-large">
+        <div class="franchise-ad-bg"></div>
+        <div class="franchise-badge-float">Franchise Opportunity</div>
+        <div class="franchise-logo-float"><span class="franchise-logo-icon-sm">☕</span><span class="franchise-logo-text-sm">chaiiwala®</span></div>
+        <div class="franchise-headline-area">
+          <span class="franchise-meet">meet</span><span class="franchise-your">your</span><span class="franchise-matcha">matcha</span>
+          <div class="franchise-authentic"><span>AUTHENTIC</span><span>HIGH-GRADE</span><span>MATCHA</span></div>
+        </div>
+        <div class="franchise-products-display">
+          <div class="product-display-item"><div class="product-cup-visual"><div class="cup-whip"></div><div class="cup-body-green"></div><div class="cup-base-pink"></div><div class="cup-logo-circle">☕</div></div><div class="product-garnish rose-petal"></div><div class="product-tray"></div><span class="product-label">rose<br>falooda</span></div>
+          <div class="product-display-item"><div class="product-cup-visual"><div class="cup-whip large"></div><div class="cup-body-green"></div><div class="cup-logo-circle">☕</div></div><div class="product-garnish cinnamon-sticks"></div><div class="product-tray"></div><span class="product-label">toasted<br>cinnamon<br>& vanilla</span></div>
+          <div class="product-display-item"><div class="product-cup-visual"><div class="cup-body-swirl"></div><div class="cup-logo-circle">☕</div></div><div class="product-garnish blueberries"></div><div class="product-tray"></div><span class="product-label">blueberry<br>& white choc</span></div>
+        </div>
+        <div class="matcha-whisk"></div>
+        <div class="franchise-cta-area">
+          <div class="franchise-locations-float"><span class="locations-now">Franchises Available Now:</span><div class="locations-tags-float"><span>🗽 New York</span><span>🤠 Texas</span></div></div>
+          <button class="franchise-apply-btn">Apply Now →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Row -->
+  <section class="categories-row">
+    <div class="categories-row-inner">
+      <div class="category-pill"><div class="category-svg-icon"><svg viewBox="0 0 64 64" fill="none" style="width:32px;height:32px"><circle cx="32" cy="32" r="28" fill="#ef4444" fill-opacity="0.1"/><path d="M20 18v28M20 18c0 6 4 10 4 14v14M28 18v10c0 2-4 4-4 4M44 18v6c0 4-4 6-4 10v12M40 18v6" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/><circle cx="42" cy="38" r="8" stroke="#ef4444" stroke-width="2.5"/></svg></div><span class="pill-name">Restaurants</span><span class="pill-count" style="color:#ef4444">4,200+</span></div>
+      <div class="category-pill"><div class="category-svg-icon"><svg viewBox="0 0 64 64" fill="none" style="width:32px;height:32px"><circle cx="32" cy="32" r="28" fill="#10b981" fill-opacity="0.1"/><path d="M32 12c-8 6-14 14-14 20v16h28V32c0-6-6-14-14-20z" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/><path d="M32 8v4M26 48v-8a6 6 0 1112 0v8" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/><circle cx="32" cy="26" r="3" fill="#10b981"/><path d="M14 48h36" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/></svg></div><span class="pill-name">Mosques</span><span class="pill-count" style="color:#10b981">2,800+</span></div>
+      <div class="category-pill"><div class="category-svg-icon"><svg viewBox="0 0 64 64" fill="none" style="width:32px;height:32px"><circle cx="32" cy="32" r="28" fill="#3b82f6" fill-opacity="0.1"/><rect x="16" y="22" width="32" height="26" rx="3" stroke="#3b82f6" stroke-width="2.5"/><path d="M24 22v-4a4 4 0 014-4h8a4 4 0 014 4v4" stroke="#3b82f6" stroke-width="2.5"/><path d="M16 34h32M32 34v8" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/><circle cx="32" cy="38" r="2" fill="#3b82f6"/></svg></div><span class="pill-name">Jobs</span><span class="pill-count" style="color:#3b82f6">3,400+</span></div>
+      <div class="category-pill"><div class="category-svg-icon"><svg viewBox="0 0 64 64" fill="none" style="width:32px;height:32px"><circle cx="32" cy="32" r="28" fill="#8b5cf6" fill-opacity="0.1"/><rect x="14" y="18" width="36" height="32" rx="4" stroke="#8b5cf6" stroke-width="2.5"/><path d="M14 28h36M22 14v8M42 14v8" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round"/><circle cx="24" cy="38" r="3" fill="#8b5cf6"/><circle cx="32" cy="38" r="3" fill="#8b5cf6"/><circle cx="40" cy="38" r="3" fill="#8b5cf6"/></svg></div><span class="pill-name">Events</span><span class="pill-count" style="color:#8b5cf6">890+</span></div>
+      <div class="category-pill"><div class="category-svg-icon"><svg viewBox="0 0 64 64" fill="none" style="width:32px;height:32px"><circle cx="32" cy="32" r="28" fill="#f59e0b" fill-opacity="0.1"/><path d="M32 12L44 28H20L32 12z" stroke="#f59e0b" stroke-width="2.5" stroke-linejoin="round"/><path d="M26 28l-8 20h28l-8-20" stroke="#f59e0b" stroke-width="2.5" stroke-linejoin="round"/><circle cx="32" cy="22" r="2" fill="#f59e0b"/><path d="M28 36h8M26 42h12" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/></svg></div><span class="pill-name">Travel Guide</span><span class="pill-count" style="color:#f59e0b">50+ cities</span></div>
+      <div class="category-pill"><div class="category-svg-icon"><svg viewBox="0 0 64 64" fill="none" style="width:32px;height:32px"><circle cx="32" cy="32" r="28" fill="#6366f1" fill-opacity="0.1"/><rect x="12" y="16" width="32" height="36" rx="3" stroke="#6366f1" stroke-width="2.5"/><path d="M44 24v24a4 4 0 004-4V24" stroke="#6366f1" stroke-width="2.5"/><path d="M18 24h20M18 32h12M18 40h16M34 32h4v12h-4z" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round"/></svg></div><span class="pill-name">Local News</span><span class="pill-count" style="color:#6366f1">Daily</span></div>
+      <div class="category-pill"><div class="category-svg-icon"><svg viewBox="0 0 64 64" fill="none" style="width:32px;height:32px"><circle cx="32" cy="32" r="28" fill="#22c55e" fill-opacity="0.1"/><circle cx="32" cy="32" r="16" stroke="#22c55e" stroke-width="2.5"/><path d="M32 22v4M32 38v4M26 28c0-2.2 2.7-4 6-4s6 1.8 6 4-2.7 4-6 4-6 1.8-6 4 2.7 4 6 4 6-1.8 6-4" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"/></svg></div><span class="pill-name">Earn Money</span><span class="pill-count" style="color:#22c55e">$5-$50</span></div>
+      <div class="category-pill"><div class="category-svg-icon"><svg viewBox="0 0 64 64" fill="none" style="width:32px;height:32px"><circle cx="32" cy="32" r="28" fill="#14b8a6" fill-opacity="0.1"/><circle cx="32" cy="24" r="8" stroke="#14b8a6" stroke-width="2.5"/><path d="M18 50c0-8 6-14 14-14s14 6 14 14" stroke="#14b8a6" stroke-width="2.5" stroke-linecap="round"/><path d="M44 28l6 6M50 28l-6 6" stroke="#14b8a6" stroke-width="2.5" stroke-linecap="round"/></svg></div><span class="pill-name">Services</span><span class="pill-count" style="color:#14b8a6">1,200+</span></div>
+    </div>
+  </section>
+
+  <!-- Membership -->
+  <section class="membership-section">
+    <div class="membership-container">
+      <div class="section-header">
+        <span class="section-badge" style="background:var(--emerald)">Join the Community</span>
+        <h2 class="section-title">Become an iHalado Member</h2>
+        <p class="section-subtitle">Unlock exclusive deals, early access to launches, and fund community projects that matter</p>
+      </div>
+      <div class="membership-grid">
+        <div class="membership-card">
+          <div class="membership-header"><h3 class="membership-name">Member</h3><div class="membership-price"><span class="price-value">$5</span><span class="price-period">/month</span></div></div>
+          <ul class="membership-features">
+            <li>Top secret deals delivered to your inbox</li><li>Early access to new product launches</li><li>Members-only flash sales</li><li>Vote on community projects to fund</li><li>Birthday reward ($10 credit)</li>
+          </ul>
+          <button class="membership-btn primary">Join Now →</button>
+        </div>
+        <div class="membership-card featured">
+          <span class="most-popular-badge">Most Popular</span>
+          <div class="membership-header"><h3 class="membership-name">Premium Circle</h3><div class="membership-price"><span class="price-value">$79</span><span class="price-period">/month</span></div></div>
+          <ul class="membership-features">
+            <li>Everything in Member, plus:</li><li>Invitations to curated private events</li><li>VIP access to exclusive launches</li><li>Private circle networking events</li><li>Big discounts (up to 40% off)</li><li>10% of your membership funds community projects</li><li>Exclusive Ramadan experiences</li>
+          </ul>
+          <button class="membership-btn primary">Join Premium Circle →</button>
+        </div>
+      </div>
+      <div class="community-giving-box">
+        <div class="giving-icon">🤲</div>
+        <div>
+          <h4 class="giving-title">10% of all memberships fund community projects</h4>
+          <p class="giving-description">Voted on by members every week — orphans, widows, mosques & more</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Projects -->
+  <section class="community-section">
+    <div class="community-container">
+      <div class="community-top">
+        <div class="community-top-left">
+          <span class="community-badge">Community Funded</span>
+          <h2 class="community-title">Projects You're Powering</h2>
+          <p class="community-subtitle">Vote for the causes that matter most. Each week, the top-voted project gets funded from membership contributions.</p>
+        </div>
+        <div class="community-pool-card">
+          <div class="pool-label">This Week's Pool</div>
+          <div class="pool-amount">$12,847</div>
+          <div class="pool-voters">2,341 members voting</div>
+        </div>
+      </div>
+
+      <div class="projects-grid">
+        <div class="project-card leading">
+          <div class="project-card-image">
+            <img src="https://images.unsplash.com/photo-1564769625688-e5e3ec56b0e4?w=400" alt="Mosque">
+            <span class="project-rank-badge">#1</span>
+            <span class="project-category-float">🕌 Mosque</span>
+          </div>
+          <div class="project-card-body">
+            <h4 class="project-card-title">Masjid Al-Noor Roof Repair</h4>
+            <p class="project-location">📍 Brooklyn, NY</p>
+            <p class="project-desc">Emergency roof repairs needed before winter. Serving 500+ families weekly.</p>
+            <div class="project-progress-bar"><div class="project-progress-fill" style="width:78%"></div></div>
+            <div class="project-progress-info"><span class="raised">$9,800 raised</span><span class="goal">Goal: $12,500</span></div>
+            <div class="project-vote-area"><span class="project-votes">847 votes</span><button class="vote-btn voted">✓ Voted</button></div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card-image">
+            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400" alt="Children">
+            <span class="project-rank-badge">#2</span>
+            <span class="project-category-float">👧 Orphans</span>
+          </div>
+          <div class="project-card-body">
+            <h4 class="project-card-title">Yemen Orphan Education Fund</h4>
+            <p class="project-location">📍 Sana'a, Yemen</p>
+            <p class="project-desc">School supplies and tuition for 50 orphaned children for one year.</p>
+            <div class="project-progress-bar"><div class="project-progress-fill" style="width:45%"></div></div>
+            <div class="project-progress-info"><span class="raised">$5,600 raised</span><span class="goal">Goal: $12,500</span></div>
+            <div class="project-vote-area"><span class="project-votes">612 votes</span><button class="vote-btn not-voted">Vote</button></div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card-image">
+            <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=400" alt="Support">
+            <span class="project-rank-badge">#3</span>
+            <span class="project-category-float">👩 Widows</span>
+          </div>
+          <div class="project-card-body">
+            <h4 class="project-card-title">Single Mothers Business Grants</h4>
+            <p class="project-location">📍 London, UK</p>
+            <p class="project-desc">Micro-grants for 10 Muslim widows to start home-based businesses.</p>
+            <div class="project-progress-bar"><div class="project-progress-fill" style="width:32%"></div></div>
+            <div class="project-progress-info"><span class="raised">$4,000 raised</span><span class="goal">Goal: $12,500</span></div>
+            <div class="project-vote-area"><span class="project-votes">489 votes</span><button class="vote-btn not-voted">Vote</button></div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card-image">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400" alt="Education">
+            <span class="project-rank-badge">#4</span>
+            <span class="project-category-float">📚 Education</span>
+          </div>
+          <div class="project-card-body">
+            <h4 class="project-card-title">Quran Memorization Scholarships</h4>
+            <p class="project-location">📍 Chicago, IL</p>
+            <p class="project-desc">Full scholarships for 5 students to complete Hifz program.</p>
+            <div class="project-progress-bar"><div class="project-progress-fill" style="width:21%"></div></div>
+            <div class="project-progress-info"><span class="raised">$2,650 raised</span><span class="goal">Goal: $12,500</span></div>
+            <div class="project-vote-area"><span class="project-votes">393 votes</span><button class="vote-btn not-voted">Vote</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="submit-project-box">
+        <div class="submit-project-left">
+          <h3>Know a cause that needs support?</h3>
+          <p>Submit a project for community review, or recommend someone in need. Public projects are voted on by members.</p>
+        </div>
+        <div class="submit-project-btns">
+          <button class="btn-sm primary">Submit a Project →</button>
+          <button class="btn-sm secondary">Recommend Someone</button>
+        </div>
+      </div>
+
+      <div class="recently-funded">
+        <h3>Recently Funded by Our Community</h3>
+        <div class="funded-list">
+          <div class="funded-item"><div class="funded-check">✓</div><div class="funded-info"><strong>Eid Gifts for Foster Children</strong><span>$8,500 funded · 2 days ago</span></div></div>
+          <div class="funded-item"><div class="funded-check">✓</div><div class="funded-info"><strong>Refugee Family Resettlement</strong><span>$12,500 funded · 9 days ago</span></div></div>
+          <div class="funded-item"><div class="funded-check">✓</div><div class="funded-info"><strong>Islamic School Playground</strong><span>$11,200 funded · 16 days ago</span></div></div>
+          <div class="funded-item"><div class="funded-check">✓</div><div class="funded-info"><strong>Wheelchair for Sister Amina</strong><span>$2,800 funded · 23 days ago</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shop -->
+  <section class="shop-section">
+    <div class="shop-header">
+      <div class="shop-header-left"><h2 class="shop-title">Shop by Category</h2><p class="shop-subtitle">Explore verified halal products</p></div>
+      <a href="#" class="shop-link">View All →</a>
+    </div>
+    <div class="categories-grid">
+      <div class="category-card"><img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=600" alt="Modest Fashion"><div class="category-info"><h3 class="category-name">Modest Fashion</h3><span class="category-count">2,840+ products</span></div></div>
+      <div class="category-card"><img src="https://images.unsplash.com/photo-1547573854-74d2a71d0826?w=600" alt="Halal Food"><div class="category-info"><h3 class="category-name">Halal Food</h3><span class="category-count">1,520+ products</span></div></div>
+      <div class="category-card"><img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600" alt="Beauty"><div class="category-info"><h3 class="category-name">Beauty & Skincare</h3><span class="category-count">890+ products</span></div></div>
+      <div class="category-card"><img src="https://images.unsplash.com/photo-1600494448655-ae78e0648658?w=600" alt="Home"><div class="category-info"><h3 class="category-name">Home & Living</h3><span class="category-count">645+ products</span></div></div>
+      <div class="category-card"><img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600" alt="Books"><div class="category-info"><h3 class="category-name">Books & Education</h3><span class="category-count">1,230+ products</span></div></div>
+      <div class="category-card"><img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600" alt="Kids"><div class="category-info"><h3 class="category-name">Kids & Family</h3><span class="category-count">780+ products</span></div></div>
+    </div>
+    <div class="shop-header" style="margin-top:60px">
+      <div class="shop-header-left"><h2 class="shop-title">Trending Now</h2><p class="shop-subtitle">This week's most-loved products</p></div>
+      <a href="#" class="shop-link">Shop All →</a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card"><div class="product-image"><img src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=400" alt="Hijab"><span class="product-badge">Bestseller</span><button class="product-wishlist">♡</button></div><div class="product-content"><p class="product-vendor">Haute Hijab</p><h3 class="product-name">Premium Jersey Hijab</h3><div class="product-price"><span class="current-price">$28</span><span class="original-price">$35</span></div><div class="product-rating"><span class="stars">★</span><span class="rating-text">4.9 (2,847)</span></div></div></div>
+      <div class="product-card"><div class="product-image"><img src="https://images.unsplash.com/photo-1593001867956-3e7e7d064a1a?w=400" alt="Dates"><span class="product-badge">Staff Pick</span><button class="product-wishlist">♡</button></div><div class="product-content"><p class="product-vendor">Baraka Dates</p><h3 class="product-name">Organic Medjool Dates 1kg</h3><div class="product-price"><span class="current-price">$34</span></div><div class="product-rating"><span class="stars">★</span><span class="rating-text">4.8 (1,203)</span></div></div></div>
+      <div class="product-card"><div class="product-image"><img src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?w=400" alt="Abaya"><button class="product-wishlist">♡</button></div><div class="product-content"><p class="product-vendor">Modanisa</p><h3 class="product-name">Embroidered Abaya</h3><div class="product-price"><span class="current-price">$149</span><span class="original-price">$189</span></div><div class="product-rating"><span class="stars">★</span><span class="rating-text">4.7 (856)</span></div></div></div>
+      <div class="product-card"><div class="product-image"><img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400" alt="Serum"><span class="product-badge">New</span><button class="product-wishlist">♡</button></div><div class="product-content"><p class="product-vendor">Sundos</p><h3 class="product-name">Halal Collagen Serum</h3><div class="product-price"><span class="current-price">$42</span></div><div class="product-rating"><span class="stars">★</span><span class="rating-text">4.9 (634)</span></div></div></div>
+    </div>
+  </section>
+
+  <!-- City Selector -->
+  <section class="city-section">
+    <div class="city-container">
+      <h2 class="city-title">Explore Your City</h2>
+      <p class="city-subtitle">Select a city to see local restaurants, mosques, events, and more</p>
+      <div class="city-grid">
+        <div class="city-card active"><div class="city-flag">🗽</div><div class="city-name-text">New York</div></div>
+        <div class="city-card"><div class="city-flag">🇬🇧</div><div class="city-name-text">London</div></div>
+        <div class="city-card"><div class="city-flag">🇯🇵</div><div class="city-name-text">Tokyo</div></div>
+        <div class="city-card"><div class="city-flag">🇰🇷</div><div class="city-name-text">Seoul</div></div>
+        <div class="city-card"><div class="city-flag">🇦🇪</div><div class="city-name-text">Dubai</div></div>
+        <div class="city-card"><div class="city-flag">🇨🇦</div><div class="city-name-text">Toronto</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact -->
+  <section class="impact-section">
+    <div class="impact-content">
+      <span class="impact-badge">Community First</span>
+      <h2 class="impact-title">Every Purchase<br>Makes a Difference</h2>
+      <p class="impact-text">When you shop on iHalado, 5% of your purchase goes directly to support mosques and Islamic centers in your community.</p>
+      <div class="impact-stats">
+        <div><span class="impact-stat-value">$2.4M</span><span class="impact-stat-label">Donated to mosques</span></div>
+        <div><span class="impact-stat-value">847</span><span class="impact-stat-label">Communities supported</span></div>
+      </div>
+    </div>
+    <div class="impact-visual"><span class="impact-icon">🕌</span></div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter-section">
+    <h2 class="newsletter-title">Stay in the Loop</h2>
+    <p class="newsletter-text">Get exclusive offers, new arrivals, and community updates</p>
+    <form class="newsletter-form" onsubmit="event.preventDefault()">
+      <input type="email" class="newsletter-input" placeholder="Enter your email">
+      <button type="submit" class="newsletter-btn">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="#" class="logo"><span class="logo-i">i</span>halado</a>
+        <p class="footer-tagline">ihalado, do you?</p>
+        <p>The world's premier destination for halal living. Shop, dine, pray, work, and travel—all verified, all in one place.</p>
+      </div>
+      <div class="footer-column"><h4>Shop</h4><a href="#">Fashion</a><a href="#">Food</a><a href="#">Beauty</a><a href="#">Home</a><a href="#">Kids</a></div>
+      <div class="footer-column"><h4>Discover</h4><a href="#">Restaurants</a><a href="#">Mosques</a><a href="#">Events</a><a href="#">Travel</a><a href="#">News</a></div>
+      <div class="footer-column"><h4>Earn</h4><a href="#">Surveys</a><a href="#">Mystery Shopping</a><a href="#">Referrals</a><a href="#">Jobs</a></div>
+      <div class="footer-column"><h4>Company</h4><a href="#">About Us</a><a href="#">Sell on iHalado</a><a href="#">Careers</a><a href="#">Contact</a></div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copyright">© 2026 iHalado. All rights reserved.</span>
+      <div class="footer-socials"><a href="#">📘</a><a href="#">📸</a><a href="#">🐦</a><a href="#">▶️</a></div>
+    </div>
+  </footer>
+
+  <!-- Hiring Modal -->
+  <div class="modal-overlay" id="hiringModal">
+    <div class="modal">
+      <button class="close-modal" onclick="closeHiringModal()">×</button>
+      <div class="hiring-header">
+        <span class="hiring-badge">We're Hiring</span>
+        <h1>Chief Executive Officer</h1>
+        <p class="hiring-tagline">Lead the future of the $2.3T halal economy</p>
+      </div>
+      <div class="hiring-content">
+        <div class="hiring-section"><h3>The Opportunity</h3><p>iHalado is building the world's first Muslim super-app—combining e-commerce, dining, prayer, jobs, events, and community into one platform serving 1.8 billion Muslims globally. We're looking for a visionary CEO to lead this mission.</p></div>
+        <div class="hiring-section"><h3>What You'll Do</h3><ul><li>Define and execute the strategic vision for iHalado's growth across markets</li><li>Build and lead a world-class team across product, engineering, operations, and growth</li><li>Drive fundraising efforts and manage investor relationships</li><li>Establish partnerships with major brands, retailers, and Islamic institutions</li><li>Champion the Muslim community's needs while building a sustainable business</li><li>Scale from launch to $100M+ GMV within 3 years</li></ul></div>
+        <div class="hiring-section"><h3>Who You Are</h3><ul><li><strong>Proven Leader:</strong> 10+ years experience, with 5+ years in senior leadership at a high-growth startup or major tech company</li><li><strong>Marketplace Expert:</strong> Deep understanding of marketplace dynamics, preferably with experience scaling a two-sided platform</li><li><strong>Community Connected:</strong> Strong ties to the Muslim community and genuine understanding of halal lifestyle needs</li><li><strong>Fundraising Track Record:</strong> Experience raising $10M+ from institutional investors</li><li><strong>Global Mindset:</strong> Experience operating across multiple markets (US, UK, Middle East, Southeast Asia preferred)</li><li><strong>Builder Mentality:</strong> Comfortable with ambiguity, ready to roll up sleeves in early-stage environment</li></ul></div>
+        <div class="hiring-section"><h3>Compensation</h3><div class="comp-grid"><div class="comp-item"><span class="comp-label">Base Salary</span><span class="comp-value">$200K - $300K</span></div><div class="comp-item"><span class="comp-label">Equity</span><span class="comp-value">5% - 10%</span></div><div class="comp-item"><span class="comp-label">Location</span><span class="comp-value">NYC / Remote</span></div><div class="comp-item"><span class="comp-label">Reports To</span><span class="comp-value">Board of Directors</span></div></div></div>
+        <div class="hiring-section"><h3>Why iHalado?</h3><div class="why-grid"><div class="why-item"><span class="why-icon">🌍</span><div><strong>Massive Market</strong><p>$2.3T halal economy growing 20% annually</p></div></div><div class="why-item"><span class="why-icon">🚀</span><div><strong>First Mover</strong><p>No dominant platform exists—we're building it</p></div></div><div class="why-item"><span class="why-icon">❤️</span><div><strong>Mission-Driven</strong><p>5% of every purchase supports mosques</p></div></div><div class="why-item"><span class="why-icon">💰</span><div><strong>Backed</strong><p>Supported by leading investors in consumer & community</p></div></div></div></div>
+        <div class="hiring-cta"><p>Ready to lead the halal revolution?</p><a href="mailto:careers@ihalado.com?subject=CEO Application" class="apply-btn-large">Apply Now →</a><span class="hiring-note">Or email careers@ihalado.com with your resume and a note on why you're the one.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Zakaat Calculator Modal -->
+  <div class="modal-overlay" id="zakaatModal">
+    <div class="modal" style="max-width:680px">
+      <button class="close-modal" onclick="closeZakaatCalc()">×</button>
+      <div class="zakaat-modal-header">
+        <div class="zakaat-modal-badge">🧮 Islamic Finance Tool</div>
+        <h1>Zakaat/Fitrana Calculator</h1>
+        <p>Calculate your obligations accurately and fulfill this pillar of Islam with confidence</p>
+      </div>
+      <div class="zakaat-modal-content">
+        <!-- Currency & Language Selectors -->
+        <div class="calc-selectors-row">
+          <div class="calc-selector-group">
+            <label>💱 Currency:</label>
+            <div class="calc-select-wrap">
+              <select class="calc-select" id="currencySelect" onchange="onCurrencyChange(this.value)">
+                <option value="USD" selected>🇺🇸 USD ($)</option>
+                <option value="AED">🇦🇪 AED (د.إ)</option>
+                <option value="PKR">🇵🇰 PKR (₨)</option>
+                <option value="INR">🇮🇳 INR (₹)</option>
+                <option value="EUR">🇪🇺 EUR (€)</option>
+                <option value="CNY">🇨🇳 CNY (¥)</option>
+                <option value="JPY">🇯🇵 JPY (¥)</option>
+              </select>
+            </div>
+          </div>
+          <div class="calc-selector-group">
+            <label>🌐 Language:</label>
+            <div class="lang-select-wrap">
+              <select class="lang-select" id="langSelect" onchange="setLanguage(this.value)">
+                <option value="en" selected>🇺🇸 English</option>
+                <option value="ar">🇸🇦 العربية (Arabic)</option>
+                <option value="ur">🇵🇰 اردو (Urdu)</option>
+                <option value="hi">🇮🇳 हिन्दी (Hindi)</option>
+                <option value="fr">🇫🇷 Français (French)</option>
+                <option value="tr">🇹🇷 Türkçe (Turkish)</option>
+                <option value="ms">🇲🇾 Bahasa Melayu</option>
+                <option value="id">🇮🇩 Bahasa Indonesia</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="calc-tabs"><button class="calc-tab active" onclick="switchCalcTab('zakaat')">Zakaat</button><button class="calc-tab" onclick="switchCalcTab('fitrana')">Fitrana / Fidya</button></div>
+        <div class="calc-panel active" id="zakaatPanel">
+          <div class="calc-info-box"><span class="calc-info-icon">📖</span><p id="nisabInfoText"><strong>Nisab threshold:</strong> Zakaat is due when your total assets exceed the Nisab — approximately the value of 87.48g of gold or 612.36g of silver. Current Nisab: ~<strong>$5,500</strong>. Zakaat rate is <strong>2.5%</strong> of net qualifying wealth.</p></div>
+          <div class="calc-group"><div class="calc-group-title"><span>💰</span> Cash & Savings</div><div class="calc-field"><label>Cash in hand</label><div class="calc-input-wrap"><span class="currency-sign">$</span><input type="number" class="calc-input" id="zCash" value="0" min="0" oninput="calculateZakaat()"></div></div><div class="calc-field"><label>Bank balances (checking + savings)</label><div class="calc-input-wrap"><span class="currency-sign">$</span><input type="number" class="calc-input" id="zBank" value="0" min="0" oninput="calculateZakaat()"></div></div><div class="calc-field"><label>Money owed to you (expected to be paid)</label><div class="calc-input-wrap"><span class="currency-sign">$</span><input type="number" class="calc-input" id="zOwed" value="0" min="0" oninput="calculateZakaat()"></div></div></div>
+          <div class="calc-group"><div class="calc-group-title"><span>📈</span> Investments</div><div class="calc-field"><label>Stocks, mutual funds & shares</label><div class="calc-input-wrap"><span class="currency-sign">$</span><input type="number" class="calc-input" id="zStocks" value="0" min="0" oninput="calculateZakaat()"></div></div><div class="calc-field"><label>Retirement / pension (accessible portion)</label><div class="calc-input-wrap"><span class="currency-sign">$</span><input type="number" class="calc-input" id="zRetire" value="0" min="0" oninput="calculateZakaat()"></div></div><div class="calc-field"><label>Crypto & digital assets</label><div class="calc-input-wrap"><span class="currency-sign">$</span><input type="number" class="calc-input" id="zCrypto" value="0" min="0" oninput="calculateZakaat()"></div></div><div class="calc-field"><label>Investment property (market value)</label><div class="calc-input-wrap"><span class="currency-sign">$</span><input type="number" class="calc-input" id="zProperty" value="0" min="0" oninput="calculateZakaat()"></div></div></div>
+          <div class="calc-group"><div class="calc-group-title"><span>✨</span> Gold, Silver & Valuables</div><div class="calc-field"><label>Gold (current market value)</label><div class="calc-input-wrap"><span class="currency-sign">$</span><input type="number" class="calc-input" id="zGold" value="0" min="0" oninput="calculateZakaat()"></div></div><div class="calc-field"><label>Silver (current market value)</label><div class="calc-input-wrap"><span class="currency-sign">$</span><input type="number" class="calc-input" id="zSilver" value="0" min="0" oninput="calculateZakaat()"></div></div></div>
+          <div class="calc-group"><div class="calc-group-title"><span>🏪</span> Business Assets</div><div class="calc-field"><label>Stock-in-trade / merchandise</label><div class="calc-input-wrap"><span class="currency-sign">$</span><input type="number" class="calc-input" id="zBiz" value="0" min="0" oninput="calculateZakaat()"></div></div></div>
+          <div class="calc-divider"></div>
+          <div class="calc-group"><div class="calc-group-title"><span>➖</span> Deductions (Liabilities)</div><div class="calc-field"><label>Debts you owe (due within the year)</label><div class="calc-input-wrap"><span class="currency-sign">$</span><input type="number" class="calc-input" id="zDebt" value="0" min="0" oninput="calculateZakaat()"></div></div><div class="calc-field"><label>Immediate expenses due</label><div class="calc-input-wrap"><span class="currency-sign">$</span><input type="number" class="calc-input" id="zExpenses" value="0" min="0" oninput="calculateZakaat()"></div></div></div>
+          <div class="calc-result-box"><div class="calc-result-label">Your Zakaat Due</div><div class="calc-result-amount" id="zakaatAmount">$0.00</div><div class="calc-result-note" id="zakaatNote">Enter your assets above to calculate</div><div class="calc-result-breakdown"><div class="breakdown-item"><span class="breakdown-value" id="zakaatTotal">$0</span><span class="breakdown-label">Total Zakatable Assets</span></div><div class="breakdown-item"><span class="breakdown-value" id="zakaatNet">$0</span><span class="breakdown-label">Net After Deductions</span></div></div></div>
+          <button class="calc-donate-btn">Pay Zakaat Through iHalado →</button>
+        </div>
+        <div class="calc-panel" id="fitranaPanel">
+          <div class="calc-info-box"><span class="calc-info-icon">🌙</span><p><strong>Fitrana (Zakat al-Fitr)</strong> is obligatory on every Muslim before Eid al-Fitr prayer. It equals the cost of one Sa' (~3kg) of staple food per person. <strong>Fidya</strong> is paid for missed fasts when unable to make them up.</p></div>
+          <div class="calc-group"><div class="calc-group-title"><span>🍚</span> Fitrana Calculation</div><div class="calc-field" style="flex-direction:column;align-items:stretch;gap:8px"><label>Staple food type for your region</label><select class="fitrana-select" id="fitranaType" onchange="calculateFitrana()"><option value="15">Wheat / Flour — $15 per person</option><option value="20">Rice — $20 per person</option><option value="25">Barley — $25 per person</option><option value="40" selected>Dates — $40 per person</option><option value="35">Raisins — $35 per person</option></select></div><div class="fitrana-people-row"><span class="fitrana-people-label">Number of people in household</span><div class="people-counter"><button class="counter-btn" onclick="changePeople(-1)">−</button><span class="counter-value" id="peopleCount">1</span><button class="counter-btn" onclick="changePeople(1)">+</button></div></div></div>
+          <div class="calc-result-box"><div class="calc-result-label">Total Fitrana Due</div><div class="calc-result-amount" id="fitranaAmount">$40.00</div><div class="calc-result-note" id="fitranaNote">For 1 person — Dates rate</div><div class="calc-result-breakdown"><div class="breakdown-item"><span class="breakdown-value" id="fitranaRate">$40</span><span class="breakdown-label">Per Person</span></div><div class="breakdown-item"><span class="breakdown-value" id="fitranaPeople">1</span><span class="breakdown-label">People</span></div></div></div>
+          <div class="calc-divider"></div>
+          <div class="calc-group"><div class="calc-group-title"><span>📿</span> Fidya Calculation (Missed Fasts)</div><div class="calc-info-box" style="margin-bottom:16px"><span class="calc-info-icon">ℹ️</span><p id="fidyaInfoText">Fidya is for those <strong>permanently unable</strong> to fast (chronic illness, elderly). Feed one person for each missed fast — approximately <strong>$15 per fast</strong>.</p></div><div class="calc-field"><label>Number of missed fasts</label><div class="calc-input-wrap"><span class="currency-sign">#</span><input type="number" class="calc-input" id="fidyaDays" value="0" min="0" oninput="calculateFidya()"></div></div></div>
+          <div class="calc-result-box"><div class="calc-result-label">Total Fidya Due</div><div class="calc-result-amount" id="fidyaAmount">$0.00</div><div class="calc-result-note" id="fidyaNote">$15 × 0 missed fasts</div></div>
+          <button class="calc-donate-btn">Pay Fitrana / Fidya Through iHalado →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="closeMobileNav()"></div>
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <button class="mobile-nav-close" onclick="closeMobileNav()">×</button>
+    <div class="mobile-nav-links">
+      <a href="#">Shop</a><a href="#">Restaurants</a><a href="#">Mosques</a><a href="#">Jobs</a><a href="#">Events</a><a href="#">Travel</a><a href="#">Earn</a>
+      <a href="#" onclick="event.preventDefault();closeMobileNav();openZakaatCalc();" style="color:var(--emerald);font-weight:600">🧮 Zakaat/Fitrana Calculator</a>
+    </div>
+    <div class="mobile-nav-actions"><button class="mobile-sell-btn">Sell on iHalado →</button></div>
+  </div>
+
+  <script>
+    window.addEventListener('scroll',function(){const h=document.getElementById('header');h.classList.toggle('scrolled',window.scrollY>50)});
+    document.querySelectorAll('.city-card').forEach(c=>c.addEventListener('click',function(){document.querySelectorAll('.city-card').forEach(x=>x.classList.remove('active'));this.classList.add('active')}));
+
+    function openHiringModal(){document.getElementById('hiringModal').classList.add('active');document.body.style.overflow='hidden'}
+    function closeHiringModal(){document.getElementById('hiringModal').classList.remove('active');document.body.style.overflow=''}
+    function openZakaatCalc(){document.getElementById('zakaatModal').classList.add('active');document.body.style.overflow='hidden'}
+    function closeZakaatCalc(){document.getElementById('zakaatModal').classList.remove('active');document.body.style.overflow=''}
+    function openMobileNav(){document.getElementById('mobileNavOverlay').classList.add('active');document.getElementById('mobileNavDrawer').classList.add('active');document.body.style.overflow='hidden'}
+    function closeMobileNav(){document.getElementById('mobileNavOverlay').classList.remove('active');document.getElementById('mobileNavDrawer').classList.remove('active');document.body.style.overflow=''}
+
+    document.getElementById('hiringModal').addEventListener('click',function(e){if(e.target===this)closeHiringModal()});
+    document.getElementById('zakaatModal').addEventListener('click',function(e){if(e.target===this)closeZakaatCalc()});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeHiringModal();closeZakaatCalc();closeMobileNav()}});
+
+    function switchCalcTab(tab){document.querySelectorAll('.calc-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.calc-panel').forEach(p=>p.classList.remove('active'));if(tab==='zakaat'){document.querySelectorAll('.calc-tab')[0].classList.add('active');document.getElementById('zakaatPanel').classList.add('active')}else{document.querySelectorAll('.calc-tab')[1].classList.add('active');document.getElementById('fitranaPanel').classList.add('active');calculateFitrana()}}
+
+    // Currency state
+    let curSymbol = '$';
+    let curCode = 'USD';
+    let nisabValue = 5500;
+
+    const currencyMap = {
+      USD: {symbol:'$', nisab:5500},
+      AED: {symbol:'د.إ', nisab:20200},
+      PKR: {symbol:'₨', nisab:1530000},
+      INR: {symbol:'₹', nisab:460000},
+      EUR: {symbol:'€', nisab:5100},
+      CNY: {symbol:'¥', nisab:40000},
+      JPY: {symbol:'¥', nisab:830000}
+    };
+
+    function onCurrencyChange(code) {
+      const c = currencyMap[code];
+      setCurrency(code, c.symbol, c.nisab);
+    }
+
+    // Fitrana rates per currency: {code: {wheat, rice, barley, dates, raisins, fidya}}
+    const fitranaRates = {
+      USD: {wheat:15, rice:20, barley:25, dates:40, raisins:35, fidya:15},
+      AED: {wheat:55, rice:75, barley:90, dates:150, raisins:130, fidya:55},
+      PKR: {wheat:800, rice:1200, barley:1500, dates:3500, raisins:3000, fidya:800},
+      INR: {wheat:400, rice:600, barley:750, dates:1800, raisins:1500, fidya:400},
+      EUR: {wheat:14, rice:18, barley:23, dates:37, raisins:32, fidya:14},
+      CNY: {wheat:110, rice:145, barley:180, dates:290, raisins:255, fidya:110},
+      JPY: {wheat:2300, rice:3000, barley:3800, dates:6000, raisins:5300, fidya:2300}
+    };
+
+    function setCurrency(code, symbol, nisab) {
+      curCode = code;
+      curSymbol = symbol;
+      nisabValue = nisab;
+
+      // Update all currency signs in inputs
+      document.querySelectorAll('.currency-sign').forEach(el => {
+        if (el.textContent !== '#') el.textContent = symbol;
+      });
+
+      // Update nisab info text
+      document.getElementById('nisabInfoText').innerHTML = '<strong>Nisab threshold:</strong> Zakaat is due when your total assets exceed the Nisab — approximately the value of 87.48g of gold or 612.36g of silver. Current Nisab: ~<strong>' + symbol + nisab.toLocaleString() + '</strong>. Zakaat rate is <strong>2.5%</strong> of net qualifying wealth.';
+
+      // Update fitrana dropdown options
+      const rates = fitranaRates[code];
+      const sel = document.getElementById('fitranaType');
+      sel.options[0].textContent = 'Wheat / Flour — ' + symbol + rates.wheat + ' per person';
+      sel.options[0].value = rates.wheat;
+      sel.options[1].textContent = 'Rice — ' + symbol + rates.rice + ' per person';
+      sel.options[1].value = rates.rice;
+      sel.options[2].textContent = 'Barley — ' + symbol + rates.barley + ' per person';
+      sel.options[2].value = rates.barley;
+      sel.options[3].textContent = 'Dates — ' + symbol + rates.dates + ' per person';
+      sel.options[3].value = rates.dates;
+      sel.options[4].textContent = 'Raisins — ' + symbol + rates.raisins + ' per person';
+      sel.options[4].value = rates.raisins;
+
+      // Update fidya info text
+      document.getElementById('fidyaInfoText').innerHTML = 'Fidya is for those <strong>permanently unable</strong> to fast (chronic illness, elderly). Feed one person for each missed fast — approximately <strong>' + symbol + rates.fidya + ' per fast</strong>.';
+
+      // Recalculate everything
+      calculateZakaat();
+      calculateFitrana();
+      calculateFidya();
+    }
+
+    function fmt(val, decimals) {
+      if (curCode === 'JPY' || curCode === 'PKR') decimals = 0;
+      return curSymbol + val.toLocaleString('en-US', {minimumFractionDigits: decimals, maximumFractionDigits: decimals});
+    }
+
+    function calculateZakaat() {
+      const ids = ['zCash','zBank','zOwed','zStocks','zRetire','zCrypto','zProperty','zGold','zSilver','zBiz'];
+      let t = 0;
+      ids.forEach(id => { t += parseFloat(document.getElementById(id).value) || 0; });
+      let d = 0;
+      ['zDebt','zExpenses'].forEach(id => { d += parseFloat(document.getElementById(id).value) || 0; });
+      const n = Math.max(0, t - d);
+      const z = n >= nisabValue ? n * 0.025 : 0;
+
+      document.getElementById('zakaatAmount').textContent = fmt(z, 2);
+      document.getElementById('zakaatTotal').textContent = fmt(t, 0);
+      document.getElementById('zakaatNet').textContent = fmt(n, 0);
+
+      if (t === 0) {
+        document.getElementById('zakaatNote').textContent = 'Enter your assets above to calculate';
+      } else if (n < nisabValue) {
+        document.getElementById('zakaatNote').textContent = 'Your net assets are below Nisab (~' + fmt(nisabValue, 0) + '). No Zakaat is due.';
+      } else {
+        document.getElementById('zakaatNote').textContent = '2.5% of ' + fmt(n, 0) + ' net zakatable wealth';
+      }
+    }
+
+    let peopleCount = 1;
+
+    function changePeople(d) {
+      peopleCount = Math.max(1, peopleCount + d);
+      document.getElementById('peopleCount').textContent = peopleCount;
+      calculateFitrana();
+    }
+
+    function calculateFitrana() {
+      const r = parseFloat(document.getElementById('fitranaType').value);
+      const t = r * peopleCount;
+      const f = document.getElementById('fitranaType').options[document.getElementById('fitranaType').selectedIndex].text.split('—')[0].trim();
+      document.getElementById('fitranaAmount').textContent = fmt(t, 2);
+      document.getElementById('fitranaRate').textContent = fmt(r, 0);
+      document.getElementById('fitranaPeople').textContent = peopleCount;
+      document.getElementById('fitranaNote').textContent = 'For ' + peopleCount + (peopleCount === 1 ? ' person' : ' people') + ' — ' + f + ' rate';
+    }
+
+    function calculateFidya() {
+      const d = parseInt(document.getElementById('fidyaDays').value) || 0;
+      const r = fitranaRates[curCode].fidya;
+      const t = d * r;
+      document.getElementById('fidyaAmount').textContent = fmt(t, 2);
+      document.getElementById('fidyaNote').textContent = fmt(r, 0) + ' × ' + d + ' ' + L.missedFast + (d !== 1 ? 's' : '');
+    }
+
+    // Language translations
+    const translations = {
+      en: {
+        tabZakaat:'Zakaat', tabFitrana:'Fitrana / Fidya',
+        nisabInfo:'<strong>Nisab threshold:</strong> Zakaat is due when your total assets exceed the Nisab — approximately the value of 87.48g of gold or 612.36g of silver. Zakaat rate is <strong>2.5%</strong> of net qualifying wealth.',
+        cashSavings:'Cash & Savings', cashHand:'Cash in hand', bankBal:'Bank balances (checking + savings)', moneyOwed:'Money owed to you (expected to be paid)',
+        investments:'Investments', stocks:'Stocks, mutual funds & shares', retire:'Retirement / pension (accessible portion)', crypto:'Crypto & digital assets', property:'Investment property (market value)',
+        goldSilver:'Gold, Silver & Valuables', gold:'Gold (current market value)', silver:'Silver (current market value)',
+        bizAssets:'Business Assets', stockTrade:'Stock-in-trade / merchandise',
+        deductions:'Deductions (Liabilities)', debts:'Debts you owe (due within the year)', expenses:'Immediate expenses due',
+        zakaatDue:'Your Zakaat Due', enterAssets:'Enter your assets above to calculate', belowNisab:'Your net assets are below Nisab. No Zakaat is due.',
+        totalAssets:'Total Zakatable Assets', netDeductions:'Net After Deductions', payZakaat:'Pay Zakaat Through iHalado →',
+        fitranaInfo:'<strong>Fitrana (Zakat al-Fitr)</strong> is obligatory on every Muslim before Eid al-Fitr prayer. It equals the cost of one Sa\' (~3kg) of staple food per person. <strong>Fidya</strong> is paid for missed fasts when unable to make them up.',
+        fitranaCalc:'Fitrana Calculation', stapleFood:'Staple food type for your region', peopleLbl:'Number of people in household',
+        totalFitrana:'Total Fitrana Due', perPerson:'Per Person', people:'People',
+        fidyaCalc:'Fidya Calculation (Missed Fasts)', fidyaInfo:'Fidya is for those <strong>permanently unable</strong> to fast (chronic illness, elderly). Feed one person for each missed fast.',
+        missedFasts:'Number of missed fasts', totalFidya:'Total Fidya Due', missedFast:'missed fast',
+        payFitrana:'Pay Fitrana / Fidya Through iHalado →',
+        wheat:'Wheat / Flour', rice:'Rice', barley:'Barley', dates:'Dates', raisins:'Raisins', perPersonUnit:'per person',
+        forPeople:'For', personWord:'person', peopleWord:'people', rate:'rate'
+      },
+      ar: {
+        tabZakaat:'حاسبة الزكاة', tabFitrana:'الفطرة / الفدية',
+        nisabInfo:'<strong>حد النصاب:</strong> تجب الزكاة عندما تتجاوز أصولك النصاب — ما يعادل تقريباً 87.48 غرام ذهب أو 612.36 غرام فضة. نسبة الزكاة <strong>2.5%</strong> من صافي الثروة المؤهلة.',
+        cashSavings:'النقد والمدخرات', cashHand:'النقد في اليد', bankBal:'أرصدة البنك (جاري + توفير)', moneyOwed:'أموال مستحقة لك (متوقع سدادها)',
+        investments:'الاستثمارات', stocks:'أسهم وصناديق استثمار', retire:'تقاعد / معاش (الجزء المتاح)', crypto:'عملات رقمية', property:'عقارات استثمارية (القيمة السوقية)',
+        goldSilver:'الذهب والفضة والمقتنيات', gold:'الذهب (القيمة السوقية الحالية)', silver:'الفضة (القيمة السوقية الحالية)',
+        bizAssets:'أصول تجارية', stockTrade:'بضائع / سلع تجارية',
+        deductions:'الخصومات (الالتزامات)', debts:'ديون مستحقة عليك (خلال السنة)', expenses:'مصاريف فورية مستحقة',
+        zakaatDue:'الزكاة المستحقة', enterAssets:'أدخل أصولك أعلاه للحساب', belowNisab:'صافي أصولك أقل من النصاب. لا زكاة مستحقة.',
+        totalAssets:'إجمالي الأصول الزكوية', netDeductions:'الصافي بعد الخصومات', payZakaat:'ادفع الزكاة عبر iHalado ←',
+        fitranaInfo:'<strong>الفطرة (زكاة الفطر)</strong> واجبة على كل مسلم قبل صلاة عيد الفطر. تعادل تكلفة صاع (~3 كجم) من الطعام الأساسي لكل شخص. <strong>الفدية</strong> تُدفع عن الصيام الفائت.',
+        fitranaCalc:'حساب الفطرة', stapleFood:'نوع الطعام الأساسي لمنطقتك', peopleLbl:'عدد أفراد الأسرة',
+        totalFitrana:'إجمالي الفطرة المستحقة', perPerson:'لكل شخص', people:'أشخاص',
+        fidyaCalc:'حساب الفدية (الصيام الفائت)', fidyaInfo:'الفدية لمن <strong>لا يستطيع</strong> الصيام نهائياً (مرض مزمن، كبار السن). إطعام شخص عن كل يوم فائت.',
+        missedFasts:'عدد أيام الصيام الفائتة', totalFidya:'إجمالي الفدية المستحقة', missedFast:'صيام فائت',
+        payFitrana:'ادفع الفطرة / الفدية عبر iHalado ←',
+        wheat:'قمح / طحين', rice:'أرز', barley:'شعير', dates:'تمر', raisins:'زبيب', perPersonUnit:'لكل شخص',
+        forPeople:'لـ', personWord:'شخص', peopleWord:'أشخاص', rate:'سعر'
+      },
+      ur: {
+        tabZakaat:'زکوٰۃ کیلکولیٹر', tabFitrana:'فطرانہ / فدیہ',
+        nisabInfo:'<strong>نصاب کی حد:</strong> زکوٰۃ اس وقت فرض ہوتی ہے جب آپ کے اثاثے نصاب سے زیادہ ہوں — تقریباً 87.48 گرام سونا یا 612.36 گرام چاندی۔ زکوٰۃ کی شرح <strong>2.5%</strong> ہے۔',
+        cashSavings:'نقد اور بچت', cashHand:'ہاتھ میں نقد', bankBal:'بینک بیلنس (چیکنگ + سیونگ)', moneyOwed:'آپ کو واجب الادا رقم',
+        investments:'سرمایہ کاری', stocks:'اسٹاک، میوچل فنڈز اور حصص', retire:'ریٹائرمنٹ / پنشن (قابل رسائی حصہ)', crypto:'کرپٹو اور ڈیجیٹل اثاثے', property:'سرمایہ کاری پراپرٹی (مارکیٹ ویلیو)',
+        goldSilver:'سونا، چاندی اور قیمتی اشیاء', gold:'سونا (موجودہ مارکیٹ ویلیو)', silver:'چاندی (موجودہ مارکیٹ ویلیو)',
+        bizAssets:'کاروباری اثاثے', stockTrade:'تجارتی مال / سامان',
+        deductions:'کٹوتیاں (ذمہ داریاں)', debts:'آپ پر واجب الادا قرض (سال کے اندر)', expenses:'فوری واجب الادا اخراجات',
+        zakaatDue:'آپ کی زکوٰۃ', enterAssets:'حساب کے لیے اوپر اپنے اثاثے درج کریں', belowNisab:'آپ کے خالص اثاثے نصاب سے کم ہیں۔ زکوٰۃ واجب نہیں۔',
+        totalAssets:'کل قابل زکوٰۃ اثاثے', netDeductions:'کٹوتیوں کے بعد خالص', payZakaat:'← iHalado کے ذریعے زکوٰۃ ادا کریں',
+        fitranaInfo:'<strong>فطرانہ (زکوٰۃ الفطر)</strong> ہر مسلمان پر عید الفطر کی نماز سے پہلے فرض ہے۔ یہ فی شخص ایک صاع (~3 کلو) بنیادی خوراک کے برابر ہے۔ <strong>فدیہ</strong> چھوٹے ہوئے روزوں کے لیے ادا کیا جاتا ہے۔',
+        fitranaCalc:'فطرانہ حساب', stapleFood:'آپ کے علاقے کی بنیادی خوراک', peopleLbl:'گھر کے افراد کی تعداد',
+        totalFitrana:'کل فطرانہ واجب الادا', perPerson:'فی شخص', people:'افراد',
+        fidyaCalc:'فدیہ حساب (چھوٹے ہوئے روزے)', fidyaInfo:'فدیہ ان لوگوں کے لیے ہے جو <strong>مستقل طور پر</strong> روزہ رکھنے سے قاصر ہیں (دائمی بیماری، بوڑھے)۔ ہر چھوٹے ہوئے روزے کے بدلے ایک شخص کو کھانا کھلائیں۔',
+        missedFasts:'چھوٹے ہوئے روزوں کی تعداد', totalFidya:'کل فدیہ واجب الادا', missedFast:'چھوٹا ہوا روزہ',
+        payFitrana:'← iHalado کے ذریعے فطرانہ / فدیہ ادا کریں',
+        wheat:'گندم / آٹا', rice:'چاول', barley:'جَو', dates:'کھجور', raisins:'کشمش', perPersonUnit:'فی شخص',
+        forPeople:'', personWord:'شخص', peopleWord:'افراد', rate:'شرح'
+      },
+      hi: {
+        tabZakaat:'ज़कात कैलकुलेटर', tabFitrana:'फ़ित्रा / फ़िद्या',
+        nisabInfo:'<strong>निसाब सीमा:</strong> ज़कात तब फ़र्ज़ होती है जब आपकी कुल संपत्ति निसाब से अधिक हो — लगभग 87.48 ग्राम सोना या 612.36 ग्राम चाँदी। ज़कात दर <strong>2.5%</strong> है।',
+        cashSavings:'नकद और बचत', cashHand:'हाथ में नकद', bankBal:'बैंक बैलेंस (चेकिंग + बचत)', moneyOwed:'आपको देय राशि',
+        investments:'निवेश', stocks:'स्टॉक, म्यूचुअल फंड और शेयर', retire:'रिटायरमेंट / पेंशन (उपलब्ध हिस्सा)', crypto:'क्रिप्टो और डिजिटल संपत्ति', property:'निवेश संपत्ति (बाज़ार मूल्य)',
+        goldSilver:'सोना, चाँदी और क़ीमती चीज़ें', gold:'सोना (वर्तमान बाज़ार मूल्य)', silver:'चाँदी (वर्तमान बाज़ार मूल्य)',
+        bizAssets:'व्यावसायिक संपत्ति', stockTrade:'व्यापारिक माल',
+        deductions:'कटौती (देनदारियाँ)', debts:'आप पर देय कर्ज़ (वर्ष के भीतर)', expenses:'तत्काल देय खर्च',
+        zakaatDue:'आपकी ज़कात', enterAssets:'गणना के लिए ऊपर अपनी संपत्ति दर्ज करें', belowNisab:'आपकी शुद्ध संपत्ति निसाब से कम है। ज़कात देय नहीं।',
+        totalAssets:'कुल ज़कात योग्य संपत्ति', netDeductions:'कटौती के बाद शुद्ध', payZakaat:'iHalado के माध्यम से ज़कात अदा करें →',
+        fitranaInfo:'<strong>फ़ित्रा (ज़कात अल-फ़ित्र)</strong> हर मुसलमान पर ईद की नमाज़ से पहले फ़र्ज़ है। यह प्रति व्यक्ति एक साअ (~3 किग्रा) मुख्य भोजन के बराबर है। <strong>फ़िद्या</strong> छूटे हुए रोज़ों के लिए दिया जाता है।',
+        fitranaCalc:'फ़ित्रा गणना', stapleFood:'आपके क्षेत्र का मुख्य भोजन', peopleLbl:'घर के सदस्यों की संख्या',
+        totalFitrana:'कुल फ़ित्रा देय', perPerson:'प्रति व्यक्ति', people:'लोग',
+        fidyaCalc:'फ़िद्या गणना (छूटे रोज़े)', fidyaInfo:'फ़िद्या उन लोगों के लिए है जो <strong>स्थायी रूप से</strong> रोज़ा रखने में असमर्थ हैं। हर छूटे रोज़े के बदले एक व्यक्ति को भोजन कराएँ।',
+        missedFasts:'छूटे रोज़ों की संख्या', totalFidya:'कुल फ़िद्या देय', missedFast:'छूटा रोज़ा',
+        payFitrana:'iHalado के माध्यम से फ़ित्रा / फ़िद्या अदा करें →',
+        wheat:'गेहूँ / आटा', rice:'चावल', barley:'जौ', dates:'खजूर', raisins:'किशमिश', perPersonUnit:'प्रति व्यक्ति',
+        forPeople:'', personWord:'व्यक्ति', peopleWord:'लोग', rate:'दर'
+      },
+      fr: {
+        tabZakaat:'Calculateur Zakat', tabFitrana:'Fitrana / Fidya',
+        nisabInfo:'<strong>Seuil Nisab :</strong> La Zakat est due lorsque vos actifs dépassent le Nisab — environ 87,48g d\'or ou 612,36g d\'argent. Le taux est de <strong>2,5%</strong> de la richesse nette éligible.',
+        cashSavings:'Espèces et épargne', cashHand:'Espèces en main', bankBal:'Soldes bancaires (courant + épargne)', moneyOwed:'Argent qui vous est dû',
+        investments:'Investissements', stocks:'Actions, fonds et parts', retire:'Retraite / pension (partie accessible)', crypto:'Crypto et actifs numériques', property:'Bien immobilier d\'investissement',
+        goldSilver:'Or, argent et objets de valeur', gold:'Or (valeur actuelle)', silver:'Argent (valeur actuelle)',
+        bizAssets:'Actifs commerciaux', stockTrade:'Marchandises / stock',
+        deductions:'Déductions (Passifs)', debts:'Dettes dues (dans l\'année)', expenses:'Dépenses immédiates dues',
+        zakaatDue:'Votre Zakat due', enterAssets:'Entrez vos actifs ci-dessus', belowNisab:'Vos actifs nets sont inférieurs au Nisab. Pas de Zakat due.',
+        totalAssets:'Total actifs imposables', netDeductions:'Net après déductions', payZakaat:'Payer la Zakat via iHalado →',
+        fitranaInfo:'<strong>Fitrana (Zakat al-Fitr)</strong> est obligatoire pour chaque musulman avant la prière de l\'Aïd. Elle équivaut au coût d\'un Sa\' (~3kg) de nourriture de base par personne.',
+        fitranaCalc:'Calcul Fitrana', stapleFood:'Type de nourriture de base', peopleLbl:'Nombre de personnes dans le foyer',
+        totalFitrana:'Total Fitrana due', perPerson:'Par personne', people:'Personnes',
+        fidyaCalc:'Calcul Fidya (jeûnes manqués)', fidyaInfo:'La Fidya est pour ceux qui sont <strong>définitivement incapables</strong> de jeûner. Nourrissez une personne par jour manqué.',
+        missedFasts:'Nombre de jeûnes manqués', totalFidya:'Total Fidya due', missedFast:'jeûne manqué',
+        payFitrana:'Payer Fitrana / Fidya via iHalado →',
+        wheat:'Blé / Farine', rice:'Riz', barley:'Orge', dates:'Dattes', raisins:'Raisins secs', perPersonUnit:'par personne',
+        forPeople:'Pour', personWord:'personne', peopleWord:'personnes', rate:'taux'
+      },
+      tr: {
+        tabZakaat:'Zekât Hesaplayıcı', tabFitrana:'Fitre / Fidye',
+        nisabInfo:'<strong>Nisap eşiği:</strong> Toplam varlıklarınız nisap miktarını aştığında zekât farz olur — yaklaşık 87,48g altın veya 612,36g gümüş değerinde. Zekât oranı <strong>%2,5</strong>\'tir.',
+        cashSavings:'Nakit ve Birikim', cashHand:'Eldeki nakit', bankBal:'Banka bakiyeleri (vadesiz + vadeli)', moneyOwed:'Size borçlu olunan para',
+        investments:'Yatırımlar', stocks:'Hisse senedi ve fonlar', retire:'Emeklilik / maaş (erişilebilir kısım)', crypto:'Kripto ve dijital varlıklar', property:'Yatırım amaçlı gayrimenkul',
+        goldSilver:'Altın, Gümüş ve Değerli Eşyalar', gold:'Altın (güncel piyasa değeri)', silver:'Gümüş (güncel piyasa değeri)',
+        bizAssets:'Ticari Varlıklar', stockTrade:'Ticari mal / stok',
+        deductions:'Kesintiler (Borçlar)', debts:'Borçlarınız (yıl içinde vadesi gelen)', expenses:'Acil ödenecek giderler',
+        zakaatDue:'Ödenecek Zekâtınız', enterAssets:'Hesaplamak için varlıklarınızı girin', belowNisab:'Net varlıklarınız nisap altında. Zekât gerekmez.',
+        totalAssets:'Toplam zekât varlıkları', netDeductions:'Kesintiler sonrası net', payZakaat:'iHalado ile zekât öde →',
+        fitranaInfo:'<strong>Fitre (Zekâtü\'l-Fıtr)</strong> her Müslüman üzerine bayram namazından önce farzdır. Kişi başı bir Sa\' (~3kg) temel gıda bedeli kadardır.',
+        fitranaCalc:'Fitre Hesaplama', stapleFood:'Bölgeniz için temel gıda türü', peopleLbl:'Hane halkı sayısı',
+        totalFitrana:'Toplam Fitre Borcu', perPerson:'Kişi başı', people:'Kişi',
+        fidyaCalc:'Fidye Hesaplama (Kaçırılan Oruçlar)', fidyaInfo:'Fidye, <strong>kalıcı olarak</strong> oruç tutamayanlara (kronik hastalık, yaşlılık) yöneliktir.',
+        missedFasts:'Kaçırılan oruç sayısı', totalFidya:'Toplam Fidye Borcu', missedFast:'kaçırılan oruç',
+        payFitrana:'iHalado ile fitre / fidye öde →',
+        wheat:'Buğday / Un', rice:'Pirinç', barley:'Arpa', dates:'Hurma', raisins:'Kuru üzüm', perPersonUnit:'kişi başı',
+        forPeople:'', personWord:'kişi', peopleWord:'kişi', rate:'oran'
+      },
+      ms: {
+        tabZakaat:'Kalkulator Zakat', tabFitrana:'Fitrah / Fidyah',
+        nisabInfo:'<strong>Had Nisab:</strong> Zakat wajib apabila jumlah aset melebihi Nisab — lebih kurang 87.48g emas atau 612.36g perak. Kadar zakat ialah <strong>2.5%</strong>.',
+        cashSavings:'Wang Tunai & Simpanan', cashHand:'Wang tunai di tangan', bankBal:'Baki bank (semasa + simpanan)', moneyOwed:'Wang yang terhutang kepada anda',
+        investments:'Pelaburan', stocks:'Saham dan dana', retire:'Persaraan / pencen (bahagian boleh diakses)', crypto:'Kripto dan aset digital', property:'Hartanah pelaburan',
+        goldSilver:'Emas, Perak & Barang Berharga', gold:'Emas (nilai pasaran semasa)', silver:'Perak (nilai pasaran semasa)',
+        bizAssets:'Aset Perniagaan', stockTrade:'Stok dagangan / barangan',
+        deductions:'Potongan (Liabiliti)', debts:'Hutang anda (dalam tahun)', expenses:'Perbelanjaan segera',
+        zakaatDue:'Zakat Anda', enterAssets:'Masukkan aset anda di atas', belowNisab:'Aset bersih anda di bawah Nisab. Tiada zakat wajib.',
+        totalAssets:'Jumlah aset zakat', netDeductions:'Bersih selepas potongan', payZakaat:'Bayar Zakat melalui iHalado →',
+        fitranaInfo:'<strong>Fitrah (Zakat Fitrah)</strong> wajib ke atas setiap Muslim sebelum solat Aidilfitri.',
+        fitranaCalc:'Kiraan Fitrah', stapleFood:'Jenis makanan ruji', peopleLbl:'Bilangan ahli keluarga',
+        totalFitrana:'Jumlah Fitrah', perPerson:'Seorang', people:'Orang',
+        fidyaCalc:'Kiraan Fidyah (Puasa Tertinggal)', fidyaInfo:'Fidyah untuk mereka yang <strong>tidak mampu</strong> berpuasa secara kekal.',
+        missedFasts:'Bilangan puasa tertinggal', totalFidya:'Jumlah Fidyah', missedFast:'puasa tertinggal',
+        payFitrana:'Bayar Fitrah / Fidyah melalui iHalado →',
+        wheat:'Gandum / Tepung', rice:'Beras', barley:'Barli', dates:'Kurma', raisins:'Kismis', perPersonUnit:'seorang',
+        forPeople:'Untuk', personWord:'orang', peopleWord:'orang', rate:'kadar'
+      },
+      id: {
+        tabZakaat:'Kalkulator Zakat', tabFitrana:'Fitrah / Fidyah',
+        nisabInfo:'<strong>Batas Nisab:</strong> Zakat wajib ketika total aset melebihi Nisab — sekitar 87,48g emas atau 612,36g perak. Tarif zakat <strong>2,5%</strong>.',
+        cashSavings:'Uang Tunai & Tabungan', cashHand:'Uang tunai di tangan', bankBal:'Saldo bank (giro + tabungan)', moneyOwed:'Uang yang terutang kepada Anda',
+        investments:'Investasi', stocks:'Saham dan reksa dana', retire:'Pensiun (bagian yang dapat diakses)', crypto:'Kripto dan aset digital', property:'Properti investasi',
+        goldSilver:'Emas, Perak & Barang Berharga', gold:'Emas (nilai pasar saat ini)', silver:'Perak (nilai pasar saat ini)',
+        bizAssets:'Aset Bisnis', stockTrade:'Stok dagangan / barang',
+        deductions:'Potongan (Kewajiban)', debts:'Utang Anda (jatuh tempo dalam tahun)', expenses:'Pengeluaran segera',
+        zakaatDue:'Zakat Anda', enterAssets:'Masukkan aset Anda di atas', belowNisab:'Aset bersih Anda di bawah Nisab. Tidak ada zakat.',
+        totalAssets:'Total aset zakat', netDeductions:'Bersih setelah potongan', payZakaat:'Bayar Zakat melalui iHalado →',
+        fitranaInfo:'<strong>Fitrah (Zakat Fitrah)</strong> wajib bagi setiap Muslim sebelum shalat Idul Fitri.',
+        fitranaCalc:'Perhitungan Fitrah', stapleFood:'Jenis makanan pokok', peopleLbl:'Jumlah anggota keluarga',
+        totalFitrana:'Total Fitrah', perPerson:'Per orang', people:'Orang',
+        fidyaCalc:'Perhitungan Fidyah (Puasa Terlewat)', fidyaInfo:'Fidyah untuk mereka yang <strong>secara permanen tidak mampu</strong> berpuasa.',
+        missedFasts:'Jumlah puasa terlewat', totalFidya:'Total Fidyah', missedFast:'puasa terlewat',
+        payFitrana:'Bayar Fitrah / Fidyah melalui iHalado →',
+        wheat:'Gandum / Tepung', rice:'Beras', barley:'Jelai', dates:'Kurma', raisins:'Kismis', perPersonUnit:'per orang',
+        forPeople:'Untuk', personWord:'orang', peopleWord:'orang', rate:'tarif'
+      }
+    };
+
+    let L = translations.en;
+
+    function setLanguage(lang) {
+      L = translations[lang] || translations.en;
+      const isRTL = (lang === 'ar' || lang === 'ur');
+      document.getElementById('zakaatModal').querySelector('.zakaat-modal-content').dir = isRTL ? 'rtl' : 'ltr';
+
+      // Tabs
+      document.querySelectorAll('.calc-tab')[0].textContent = L.tabZakaat;
+      document.querySelectorAll('.calc-tab')[1].textContent = L.tabFitrana;
+
+      // Nisab info
+      document.getElementById('nisabInfoText').innerHTML = L.nisabInfo + ' ' + getCurNisabStr();
+
+      // Zakaat labels
+      const gTitles = document.querySelectorAll('.calc-group-title');
+      const gLabels = document.querySelectorAll('.calc-field label');
+      // Cash group
+      gTitles[0].innerHTML = '<span>💰</span> ' + L.cashSavings;
+      gLabels[0].textContent = L.cashHand;
+      gLabels[1].textContent = L.bankBal;
+      gLabels[2].textContent = L.moneyOwed;
+      // Investments
+      gTitles[1].innerHTML = '<span>📈</span> ' + L.investments;
+      gLabels[3].textContent = L.stocks;
+      gLabels[4].textContent = L.retire;
+      gLabels[5].textContent = L.crypto;
+      gLabels[6].textContent = L.property;
+      // Gold
+      gTitles[2].innerHTML = '<span>✨</span> ' + L.goldSilver;
+      gLabels[7].textContent = L.gold;
+      gLabels[8].textContent = L.silver;
+      // Business
+      gTitles[3].innerHTML = '<span>🏪</span> ' + L.bizAssets;
+      gLabels[9].textContent = L.stockTrade;
+      // Deductions
+      gTitles[4].innerHTML = '<span>➖</span> ' + L.deductions;
+      gLabels[10].textContent = L.debts;
+      gLabels[11].textContent = L.expenses;
+
+      // Zakaat results
+      document.querySelectorAll('.calc-result-label')[0].textContent = L.zakaatDue;
+      document.querySelectorAll('.breakdown-label')[0].textContent = L.totalAssets;
+      document.querySelectorAll('.breakdown-label')[1].textContent = L.netDeductions;
+      document.querySelectorAll('.calc-donate-btn')[0].textContent = L.payZakaat;
+
+      // Fitrana info
+      document.querySelectorAll('.calc-info-box p')[1].innerHTML = L.fitranaInfo;
+      gTitles[5].innerHTML = '<span>🍚</span> ' + L.fitranaCalc;
+      gLabels[12].textContent = L.stapleFood;
+      document.querySelector('.fitrana-people-label').textContent = L.peopleLbl;
+
+      // Update fitrana dropdown text
+      updateFitranaDropdownText();
+
+      // Fitrana results
+      document.querySelectorAll('.calc-result-label')[1].textContent = L.totalFitrana;
+      document.querySelectorAll('.breakdown-label')[2].textContent = L.perPerson;
+      document.querySelectorAll('.breakdown-label')[3].textContent = L.people;
+
+      // Fidya
+      gTitles[6].innerHTML = '<span>📿</span> ' + L.fidyaCalc;
+      document.getElementById('fidyaInfoText').innerHTML = L.fidyaInfo;
+      gLabels[13].textContent = L.missedFasts;
+      document.querySelectorAll('.calc-result-label')[2].textContent = L.totalFidya;
+      document.querySelectorAll('.calc-donate-btn')[1].textContent = L.payFitrana;
+
+      calculateZakaat();
+      calculateFitrana();
+      calculateFidya();
+    }
+
+    function getCurNisabStr() {
+      return 'Nisab: ~<strong>' + curSymbol + nisabValue.toLocaleString() + '</strong>';
+    }
+
+    function updateFitranaDropdownText() {
+      const rates = fitranaRates[curCode];
+      const sel = document.getElementById('fitranaType');
+      sel.options[0].textContent = L.wheat + ' — ' + curSymbol + rates.wheat + ' ' + L.perPersonUnit;
+      sel.options[1].textContent = L.rice + ' — ' + curSymbol + rates.rice + ' ' + L.perPersonUnit;
+      sel.options[2].textContent = L.barley + ' — ' + curSymbol + rates.barley + ' ' + L.perPersonUnit;
+      sel.options[3].textContent = L.dates + ' — ' + curSymbol + rates.dates + ' ' + L.perPersonUnit;
+      sel.options[4].textContent = L.raisins + ' — ' + curSymbol + rates.raisins + ' ' + L.perPersonUnit;
+    }
+  </script>
+</body>
+</html>
